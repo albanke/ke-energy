@@ -767,3 +767,82 @@ input:focus, textarea:focus{
 .docBody{ padding: 0 16px 16px 16px; }
 .docBody.prose h3{ margin-top: 14px; }
 .docBody.prose ul, .docBody.prose ol{ margin-top: 8px; }
+
+/* Prodotti: immagini nelle card */
+.card__img{width:100%;height:220px;object-fit:cover;display:block;border-radius:14px;margin-bottom:14px;}
+@media (max-width:768px){.card__img{height:180px;}}
+
+/* === FIX IMMAGINI PRODOTTI RESPONSIVE === */
+.product-card img,
+.prodotti-card img,
+.product img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    display: block;
+}
+
+.product-card .image-wrapper,
+.prodotti-card .image-wrapper,
+.product .image-wrapper {
+    height: auto !important;
+    max-height: none !important;
+}
+
+
+/* === PRODOTTI: allineamento card + immagini intere (no crop) === */
+.page-prodotti .cards{
+  align-items: stretch;
+}
+.page-prodotti .card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.page-prodotti .card__body{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  flex:1;
+}
+.page-prodotti .card__body p{ margin:0; }
+.page-prodotti .card__body .btn,
+.page-prodotti .card__body .btnPrimary,
+.page-prodotti .card__body a.btn,
+.page-prodotti .card__body a.btnPrimary{
+  margin-top:auto; /* spinge il bottone in basso per allineare le card */
+}
+
+/* immagine: box uniforme + immagine intera */
+.page-prodotti .card__img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+  background:#f3f4f6;
+  display:block;
+  padding:10px;
+}
+
+/* === MOBILE POLISH GENERALE === */
+@media (max-width: 980px){
+  .container{ padding-left:16px; padding-right:16px; }
+  .topbar__right{ justify-content:flex-start; }
+  .btn, .btnPrimary{ width:100%; text-align:center; }
+  .header__inner{ gap:12px; }
+  .nav{ flex-wrap:wrap; }
+  .nav a{ padding:10px 10px; }
+  .footer__grid{ grid-template-columns: 1fr; gap:16px; }
+  .hero{ padding-top:64px; }
+  .section{ padding:44px 0; }
+  .tableWrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .page-prodotti .card__img{ height:200px; }
+}
+
+@media (max-width: 520px){
+  h1{ font-size:1.9rem; }
+  h2{ font-size:1.45rem; }
+  .hero__title{ font-size:2.05rem; }
+  .kpi{ grid-template-columns:1fr; }
+  .page-prodotti .card__img{ height:170px; padding:8px; }
+}
