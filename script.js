@@ -1,0 +1,375 @@
+// year
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// mobile menu
+const menuBtn = document.querySelector(".menu-btn");
+const mobileNav = document.querySelector(".mobile-nav");
+
+if (menuBtn && mobileNav) {
+  menuBtn.addEventListener("click", () => {
+    const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
+    menuBtn.setAttribute("aria-expanded", String(!isOpen));
+    mobileNav.hidden = isOpen;
+  });
+
+  mobileNav.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      menuBtn.setAttribute("aria-expanded", "false");
+      mobileNav.hidden = true;
+    });
+  });
+}
+
+// scroll reveal (IntersectionObserver)
+const revealItems = document.querySelectorAll(".reveal");
+
+if (revealItems.length) {
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealItems.forEach((el) => el.classList.add("visible"));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealItems.forEach((el) => io.observe(el));
+  }
+}
+
+// to top
+const toTop = document.querySelector(".toTop");
+const toggleToTop = () => {
+  if (!toTop) return;
+  if (window.scrollY > 700) toTop.classList.add("visible");
+  else toTop.classList.remove("visible");
+};
+window.addEventListener("scroll", toggleToTop);
+window.addEventListener("load", toggleToTop);
+
+// ✅ FIX: click TOP sempre funzionante
+if (toTop) {
+  toTop.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// hero parallax
+const heroBg = document.querySelector(".hero__bg");
+const parallax = () => {
+  if (!heroBg) return;
+  const y = Math.min(window.scrollY, 600);
+  heroBg.style.transform = `translate3d(0, ${y * 0.15}px, 0) scale(1.05)`;
+};
+window.addEventListener("scroll", parallax);
+window.addEventListener("load", parallax);
+
+// counters (resta, ma non verrà usato se togli la sezione)
+const counters = document.querySelectorAll(".stat__num");
+let countersDone = false;
+
+function animateCount(el, target) {
+  const duration = 1100;
+  const start = performance.now();
+  const from = 0;
+
+  const step = (t) => {
+    const p = Math.min((t - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const value = Math.round(from + (target - from) * eased);
+    el.textContent = value.toLocaleString("it-IT");
+    if (p < 1) requestAnimationFrame(step);
+  };
+
+  requestAnimationFrame(step);
+}
+
+if (counters.length) {
+  const counterObserver = new IntersectionObserver((entries) => {
+    if (countersDone) return;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        countersDone = true;
+        counters.forEach(c => animateCount(c, Number(c.dataset.count || 0)));
+      }
+    });
+  }, { threshold: 0.25 });
+
+  counterObserver.observe(counters[0]);
+}
+
+// CONTACT FORM -> BACKEND
+const contactForm = document.querySelector('form[data-api="contatti"]');
+if (contactForm) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const btn = contactForm.querySelector('button[type="submit"]');
+    const originalText = btn ? btn.textContent : "";
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Invio in corso...";
+    }
+
+    const fd = new FormData(contactForm);
+    const payload = Object.fromEntries(fd.entries());
+
+    try {
+      const res = await fetch("/api/contatti", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const msg = data?.error || "Errore durante l'invio. Riprova.";
+        alert(msg);
+      } else {
+        alert("Messaggio inviato correttamente. Ti ricontatteremo al più presto.");
+        contactForm.reset();
+      }
+    } catch {
+      alert("Connessione non disponibile. Riprova tra poco.");
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+  });
+}
+
+// prodotti slider (home) – loop infinito "a scatti" + frecce
+(function () {
+  const viewport = document.querySelector(".productSwipe__viewport");
+  if (!viewport) return;
+
+  const track = viewport.querySelector(".productSwipe__track");
+  if (!track) return;
+
+  const originals = Array.from(track.querySelectorAll(".productSwipe__slide"));
+  if (originals.length < 2) return;
+
+  // Rispetta preferenze utente (niente autoplay, ma frecce/scroll manuale ok)
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Duplica le slide per un loop continuo (sempre: serve anche per le frecce)
+  originals.forEach((el) => {
+    const clone = el.cloneNode(true);
+    clone.dataset.baseIndex = el.dataset.baseIndex;
+    track.appendChild(clone);
+  });
+
+  const slides = Array.from(track.querySelectorAll(".productSwipe__slide"));
+  const baseCount = originals.length;
+
+  let pos = 0; // indice dentro slides (include cloni)
+  let timer = null;
+  let scrollTimeout = null;
+  let isPointerDown = false;
+
+  const setActive = (baseIndex) => {
+    slides.forEach((s) => {
+      s.classList.toggle("is-active", s.dataset.baseIndex === String(baseIndex));
+    });
+  };
+
+  const scrollToPos = (p, behavior = "smooth") => {
+    const el = slides[p];
+    if (!el) return;
+    viewport.scrollTo({ left: el.offsetLeft, behavior });
+  };
+
+  const normalizeLoop = () => {
+    // metà track = set originale (perché abbiamo duplicato 1 volta)
+    const half = track.scrollWidth / 2;
+    if (!half) return;
+
+    // Se andiamo oltre metà, torniamo indietro di "half" (salto invisibile)
+    if (viewport.scrollLeft >= half) {
+      viewport.scrollLeft -= half;
+      pos -= baseCount;
+      if (pos < 0) pos = 0;
+    }
+  };
+
+  const findNearest = () => {
+    const vRect = viewport.getBoundingClientRect();
+    const vCenter = vRect.left + vRect.width / 2;
+
+    let bestPos = pos;
+    let bestDist = Number.POSITIVE_INFINITY;
+
+    const from = Math.max(0, pos - 6);
+    const to = Math.min(slides.length - 1, pos + 6);
+
+    for (let i = from; i <= to; i++) {
+      const r = slides[i].getBoundingClientRect();
+      const c = r.left + r.width / 2;
+      const d = Math.abs(c - vCenter);
+      if (d < bestDist) {
+        bestDist = d;
+        bestPos = i;
+      }
+    }
+
+    pos = bestPos;
+    setActive(pos % baseCount);
+  };
+
+  const stepTo = (delta) => {
+    normalizeLoop();
+
+    pos += delta;
+    if (pos < 0) pos = slides.length - 1;
+    if (pos >= slides.length) pos = 0;
+
+    setActive(pos % baseCount);
+    scrollToPos(pos, "smooth");
+  };
+
+  const next = () => stepTo(1);
+  const prev = () => stepTo(-1);
+
+  const start = () => {
+    if (prefersReducedMotion) return;
+    if (timer) return;
+    // Velocizza lo scorrimento automatico dei prodotti in homepage
+    timer = window.setInterval(next, 3500); // si ferma su ogni card
+  };
+
+  const stop = () => {
+    if (!timer) return;
+    window.clearInterval(timer);
+    timer = null;
+  };
+
+  // Avvio
+  setActive(0);
+  scrollToPos(0, "auto");
+  start();
+
+  // Swipe/drag manuale: durante il drag stop, poi riprende
+  viewport.addEventListener(
+    "pointerdown",
+    () => {
+      isPointerDown = true;
+      stop();
+    },
+    { passive: true }
+  );
+
+  const resume = () => {
+    isPointerDown = false;
+    start();
+  };
+
+  viewport.addEventListener("pointerup", resume, { passive: true });
+  viewport.addEventListener("pointercancel", resume, { passive: true });
+  viewport.addEventListener("pointerleave", () => {
+    if (isPointerDown) resume();
+  });
+
+  // Se l’utente scrolla, aggiorniamo l’indice "corrente" e normalizziamo il loop
+  viewport.addEventListener(
+    "scroll",
+    () => {
+      normalizeLoop();
+      if (scrollTimeout) window.clearTimeout(scrollTimeout);
+      // Snap un po' più rapido dopo lo scroll
+      scrollTimeout = window.setTimeout(findNearest, 80);
+    },
+    { passive: true }
+  );
+
+  // Frecce di navigazione
+  const btnPrev = document.querySelector(".productSwipe__nav--prev");
+  const btnNext = document.querySelector(".productSwipe__nav--next");
+
+  const nudge = (fn) => {
+    stop();
+    fn();
+    // piccola pausa e poi riparte (se non stiamo trascinando)
+    window.setTimeout(() => {
+      if (!isPointerDown) start();
+    }, 400);
+  };
+
+  if (btnPrev) btnPrev.addEventListener("click", () => nudge(prev));
+  if (btnNext) btnNext.addEventListener("click", () => nudge(next));
+
+  // Tastiera (quando il viewport è in focus)
+  viewport.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nudge(next);
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      nudge(prev);
+    }
+  });
+})();
+
+/* --- FIX: remove stray "<Vspan>" artifacts shown as text (generated by scripts/templates) --- */
+(function () {
+  function cleanTextNodes(root) {
+    try {
+      const re = /<\s*\/?\s*vspan\s*>/ig;
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      let n;
+      while ((n = walker.nextNode())) {
+        if (n.nodeValue && re.test(n.nodeValue)) {
+          n.nodeValue = n.nodeValue.replace(re, "");
+        }
+      }
+    } catch (e) {
+      // no-op
+    }
+  }
+
+  function runCleanup() {
+    if (!document.body) return;
+    cleanTextNodes(document.body);
+  }
+
+  // Run at load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runCleanup);
+  } else {
+    runCleanup();
+  }
+
+  // Run again shortly after (covers late-rendered content)
+  setTimeout(runCleanup, 300);
+
+  // Observe dynamic changes (covers sliders / injected HTML)
+  let t = null;
+  const obs = new MutationObserver(() => {
+    clearTimeout(t);
+    t = setTimeout(runCleanup, 50);
+  });
+  const startObs = () => {
+    if (!document.body) return;
+    obs.observe(document.body, { childList: true, subtree: true, characterData: true });
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startObs);
+  } else {
+    startObs();
+  }
+})();
