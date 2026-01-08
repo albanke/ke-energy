@@ -405,11 +405,17 @@ a{ color: inherit; }
   border:1px solid rgba(0,0,0,.08);
 }
 .mediaImg{ width:100%; height: 360px; object-fit:cover; display:block; }
+.mediaVideo{ width:100%; height: 360px; object-fit:cover; display:block; background:#fff; }
 .mediaImg--contain{
   object-fit: contain;
   background: #fff;
   padding: 18px;
 }
+
+/* Chi siamo – intro più "stampato" */
+.chiSiamoIntro .split{ gap:34px; }
+.chiSiamoIntro .split__text h2{ margin:0; font-size: clamp(26px, 3vw, 38px); letter-spacing:-0.01em; }
+.chiSiamoIntro .split__text p{ font-size: 18px; line-height: 1.75; }
 .mediaBadge{
   position:absolute;
   left:14px; bottom:14px;
@@ -479,6 +485,14 @@ a{ color: inherit; }
   background:#fff;
   box-shadow: var(--shadow);
   color:#1b1f24;
+  overflow:hidden;
+}
+.listCard__img{
+  width: calc(100% + 32px);
+  height: 160px;
+  object-fit: cover;
+  display:block;
+  margin: -16px -16px 12px;
 }
 .listCard h3{ margin:0; color:#1b1f24; }
 .listCard p{ margin:10px 0 0; color:#4a5562; }
@@ -688,7 +702,7 @@ input:focus, textarea:focus{
 .footer__logo{
   width:62px;
   height:62px;
-  object-fit:contain;
+  object-fit:cover;
   background: transparent;
   padding: 0;
   border: 0;
@@ -798,6 +812,7 @@ input:focus, textarea:focus{
   .nav{ display:none; }
   .menu-btn{ display:block; }
   .mediaImg{ height: 300px; }
+  .mediaVideo{ height: 300px; }
   .brand__logo{ width: 96px; height: 96px; }
 }
 
@@ -876,7 +891,7 @@ input:focus, textarea:focus{
 .page-prodotti .card__img{
   width:100%;
   height:220px;
-  object-fit:contain;
+  object-fit:cover;
   background:#f3f4f6;
   display:block;
   padding:10px;
@@ -973,7 +988,7 @@ input:focus, textarea:focus{
 .marquee__item img{
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover;
   padding:10px;
   display:block;
   transition: transform .22s ease;
@@ -1263,3 +1278,21 @@ img{
   max-width: 90ch;
 }
 .footer__legal strong{ color: #fff; }
+
+
+.section--tight{ padding-top:48px; }
+
+.footer__meta{
+  padding: 22px 0 28px;
+  text-align: center;
+}
+.footer-legal{
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(232,238,242,.85);
+}
+.footer__copyright{
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(232,238,242,.75);
+}
