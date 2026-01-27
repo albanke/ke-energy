@@ -1,0 +1,244 @@
+/* Home layout premium */
+.ke-wrap{width:min(1200px, 92%); margin:0 auto}
+.ke-hero{
+  height:110vh;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  align-items:center;
+  gap:48px;
+  padding-top:28px;
+}
+.ke-kicker{
+  font-weight:900; letter-spacing:3px; text-transform:uppercase;
+  font-size:.75rem; opacity:.65;
+}
+.ke-hero h1{
+  font-size:clamp(3.2rem, 8vw, 8.5rem);
+  line-height:.86;
+  margin:10px 0 0 0;
+}
+.ke-outline{color:transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.92)}
+.ke-hero p{max-width:520px; margin-top:22px; font-size:1.08rem; opacity:.75; line-height:1.75}
+.ke-actions{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap}
+.ke-btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:.75rem;
+}
+.ke-btn--accent{
+  background:rgba(74,222,128,.92);
+  color:#041008 !important;
+  border-color:rgba(74,222,128,.92);
+}
+.ke-visual{position:relative; height:78vh; display:flex; align-items:center; justify-content:flex-end}
+.ke-media{
+  width:100%; height:100%;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid rgba(255,255,255,.08);
+}
+.ke-media video, .ke-media img{width:100%; height:100%; object-fit:cover; display:block}
+.ke-float{
+  position:absolute;
+  left:-42px;
+  bottom:-26px;
+  background:var(--accent);
+  color:#08140b;
+  padding:34px 36px;
+  border-radius:14px;
+  font-family:'Unbounded',system-ui,sans-serif;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 24px 80px rgba(0,0,0,.45);
+}
+.ke-float span{display:block; font-size:.75rem; font-weight:700; margin-bottom:10px; opacity:.85}
+
+.ke-section{padding:90px 0}
+.ke-section h2{font-size:clamp(2.4rem, 6vw, 5.2rem); line-height:.92; margin:0 0 18px 0}
+.ke-grid{display:grid; grid-template-columns:repeat(12,1fr); gap:22px; margin-top:26px}
+.ke-card{
+  background:rgba(255,255,255,.04);
+  border-top:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  padding:28px;
+}
+.ke-card h3{color:var(--accent); font-size:.95rem; margin:0 0 12px 0}
+.ke-card p{opacity:.78; line-height:1.8}
+.ke-col-4{grid-column:span 4}
+.ke-col-6{grid-column:span 6}
+.ke-col-12{grid-column:span 12}
+
+@media (max-width:980px){
+  .ke-hero{grid-template-columns:1fr; height:auto}
+  .ke-visual{height:60vh}
+  .ke-float{left:16px}
+  .ke-grid{grid-template-columns:repeat(6,1fr)}
+  .ke-col-4,.ke-col-6,.ke-col-12{grid-column:span 6}
+}
+/* background layers */
+.ke-home-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.9;
+}
+.ke-home-bg::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:url("assets/img/ke-pattern-energy.svg");
+  background-size: 520px;
+  background-repeat: repeat;
+  opacity:.10;
+  mix-blend-mode: screen;
+}
+.ke-home-bg::after{
+  content:"";
+  position:absolute; inset:-10%;
+  background:
+    radial-gradient(closest-side, rgba(74,222,128,.18), transparent 60%),
+    radial-gradient(closest-side, rgba(255,255,255,.10), transparent 60%);
+  filter: blur(30px);
+  opacity:.75;
+}
+body.ke-home main{position:relative; z-index:1}
+
+/* Horizontal scroller */
+.ke-hscroll{position:relative; margin-top:26px; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.08)}
+.ke-hscroll__track{
+  display:flex;
+  gap:18px;
+  padding:18px;
+  width:max-content;
+  will-change: transform;
+}
+.ke-slide{
+  width:min(420px, 78vw);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+}
+.ke-slide img{width:100%; height:240px; object-fit:cover; display:block}
+.ke-slide .b{padding:18px 18px 20px}
+.ke-slide h3{margin:0 0 10px 0; color:var(--accent); font-size:1rem}
+.ke-slide p{margin:0; opacity:.78; line-height:1.75}
+
+/* prodotti: scorrimento orizzontale libero (non pinned) */
+.ke-hscroll{border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02)}
+.ke-hscroll{scrollbar-width: thin}
+.ke-hscroll::-webkit-scrollbar{height:10px}
+.ke-hscroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18); border-radius:999px}
+.ke-hscroll__track{gap:18px; padding:18px}
+/* slide */
+.ke-slide img{background:#0b0b0f}
+
+/* evita spazi vuoti eccessivi */
+.ke-section{padding:75px 0}
+
+/* Home hero: no image panel, just spacing */
+.ke-visual{display:none}
+
+/* Products slide text (fix too dark) */
+.ke-slide .b{color: #ffffff}
+.ke-slide .b p{color: rgba(255,255,255,.82) !important; opacity: 1 !important}
+.ke-slide .b h3{color: var(--accent) !important}
+
+/* Incentivi cards: use dark style, not light (fix too dark on dark bg) */
+#incentivi .ke-card{background: rgba(255,255,255,.05) !important; color:#fff !important}
+#incentivi .ke-card h3{color: var(--accent) !important}
+#incentivi .ke-card p{color: rgba(255,255,255,.82) !important; opacity:1 !important}
+#incentivi .ke-card img.ke-card-img{height:220px; margin-bottom:14px; filter: contrast(1.02) brightness(.95)}
+
+#azienda .ke-card p{color: rgba(255,255,255,.84) !important; opacity:1 !important}
+
+/* v9: products pinned section polish */
+#prodotti-home.ke-panel{ border-radius: 22px; }
+#prodotti-home .ke-panel-inner{ padding-bottom: 34px; }
+.ke-hscroll{ overflow:hidden; }
+
+/* Fallback list (shown only if JS/ScrollTrigger fails) */
+.ke-products-fallback{ display:block; margin-top:18px; }
+html.js .ke-products-fallback{ display:none; }
+.ke-fb-item{
+  display:grid;
+  grid-template-columns: 140px 1fr;
+  gap:14px;
+  padding:14px;
+  border-radius:14px;
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  margin-bottom:12px;
+}
+.ke-fb-item img{width:100%; height:100px; object-fit:contain; background:#0b0b0f; border-radius:12px; padding:10px;}
+.ke-fb-title{font-family:'Unbounded',system-ui,sans-serif; font-size:.95rem; color: var(--accent);}
+.ke-fb-desc{color: rgba(255,255,255,.84); line-height:1.65; margin-top:6px;}
+@media (max-width:680px){
+  .ke-fb-item{grid-template-columns: 1fr;}
+  .ke-fb-item img{height:160px;}
+}
+
+/* v11: fallback visible by default; hidden only when pin active (html.js) */
+
+/* ===== v13 home mobile polish ===== */
+@media (max-width: 980px){
+  .ke-hero{ height: auto; padding-top: 0; }
+  .ke-section{ padding: 58px 0; }
+  .ke-actions{ gap: 10px; }
+  .ke-btn{ width: 100%; justify-content: center; }
+  #prodotti-home .ke-hscroll{ min-height: 300px; }
+  .ke-slide{ width: min(340px, 86vw); }
+  .ke-card-img{ height: 190px; }
+}
+
+
+/* ===== v20 fix: HOME ambiti card images aligned (no distort) ===== */
+#ambiti .ke-card{
+  overflow:hidden;
+}
+#ambiti .ke-card img.ke-card-img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display:block;
+  margin: -16px -16px 12px;
+}
+
+
+/* ===== v19 ambiti pinned hscroll sizing ===== */
+#ambiti .ke-hscroll__track{ gap: 18px; }
+#ambiti .ke-slide{ min-width: min(520px, 86vw); }
+#ambiti .ke-card{ height: 100%; }
+
+
+/* ===== v20 native horizontal scroll for mobile (no pin) ===== */
+.ke-hscroll--native{
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+.ke-hscroll--native .ke-hscroll__track{
+  display:flex;
+  width:max-content;
+  gap:18px;
+}
+.ke-hscroll--native .ke-slide{
+  scroll-snap-align: start;
+}
+
+
+/* ===== v21 pinned stacking fix ===== */
+#ambiti.ke-panel, #prodotti-home.ke-panel{
+  position: relative;
+  z-index: 1;
+}
+
+
