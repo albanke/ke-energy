@@ -455,20 +455,33 @@ if (contactForm) {
 </article>`;
       }
 
-      // Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
-      for (const cat of CATEGORIES) {
-        const wrap = document.getElementById(`ke-cat-${cat}`);
-        if (!wrap) continue;
-        wrap.innerHTML = '';
-        const items = byCat.get(cat) || [];
-        if (items.length) {
-          wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
-        }
-      }
-    } catch {
-      // in caso API non disponibile non facciamo nulla
-    }
+     for (const cat of CATEGORIES) {
+  const wrap = document.getElementById(`ke-cat-${cat}`);
+  if (!wrap) continue;
+
+  const items = byCat.get(cat) || [];
+  wrap.innerHTML = '';
+
+  // ✅ trova il titolo della categoria in modo robusto:
+  // 1) prova l'H2 subito prima
+  // 2) se non c’è, cerca il primo H2 nel parent della categoria
+  let title = wrap.previousElementSibling;
+  if (!title || title.tagName !== 'H2') {
+    const parent = wrap.parentElement;
+    title = parent ? parent.querySelector('h2') : null;
   }
+
+  if (items.length) {
+    // mostra e riempi
+    wrap.style.display = '';
+    if (title) title.style.display = '';
+    wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
+  } else {
+    // nascondi solo quella categoria vuota
+    wrap.style.display = 'none';
+    if (title) title.style.display = 'none';
+  }
+}
 
   
   async function bootDynamicIncentivi() {
