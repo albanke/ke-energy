@@ -397,7 +397,7 @@ if (contactForm) {
       if (!document.getElementById('ke-cat-Moduli') && !document.getElementById('ke-cat-Inverter')) return;
 
       const rows = await loadPublicRows('prodotti');
-      if (!rows.length) return;
+if (!rows.length) console.warn('Nessun prodotto presente: nascondo le categorie vuote');
 
       const CATEGORIES = [
         'Moduli',
@@ -456,19 +456,28 @@ if (contactForm) {
       }
 
       // Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
-      for (const cat of CATEGORIES) {
-        const wrap = document.getElementById(`ke-cat-${cat}`);
-        if (!wrap) continue;
-        wrap.innerHTML = '';
-        const items = byCat.get(cat) || [];
-        if (items.length) {
-          wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
-        }
-      }
-    } catch {
-      // in caso API non disponibile non facciamo nulla
-    }
+for (const cat of CATEGORIES) {
+  const wrap = document.getElementById(`ke-cat-${cat}`);
+  if (!wrap) continue;
+
+  // Il titolo <h2> è il blocco subito prima del contenitore
+  const title = wrap.previousElementSibling;
+
+  wrap.innerHTML = '';
+  const items = byCat.get(cat) || [];
+
+  if (items.length) {
+    // Mostra titolo + contenitore
+    wrap.style.display = '';
+    if (title && title.tagName === 'H2') title.style.display = '';
+    wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
+  } else {
+    // Nascondi titolo + contenitore vuoto
+    wrap.style.display = 'none';
+    if (title && title.tagName === 'H2') title.style.display = 'none';
   }
+}
+
 
   
   async function bootDynamicIncentivi() {
