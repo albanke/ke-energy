@@ -1,0 +1,176 @@
+{
+  "prodotti": [
+    {
+      "id": 1,
+      "created_at": "seed",
+      "categoria": "Moduli",
+      "titolo": "Trina Solar Vertex N – TSM‑NEG21C.20 (695–720 W)",
+      "descrizione": "Modulo N-type i‑TOPCon bifacciale (dual glass) ad alta potenza.",
+      "bullets": [
+        "Potenza: 695–720 W (tolleranza positiva 0~+5W)",
+        "Efficienza max: 23,2%",
+        "Garanzia: 12 anni prodotto + 30 anni potenza",
+        "Tensione sistema: 1500 V DC (IEC)"
+      ],
+      "immagine": "assets/images/prodotti/trina-vertex-n-695-720w.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/trina-vertex-n-695-720w.pdf",
+      "link": ""
+    },
+    {
+      "id": 2,
+      "created_at": "seed",
+      "categoria": "Moduli",
+      "titolo": "Peimar OR10H505M (BF) – Half Cell Line (505 W)",
+      "descrizione": "Modulo half‑cell a 132 celle monocristalline PERC, adatto a installazioni residenziali, commerciali e industriali.",
+      "bullets": [
+        "Potenza di picco (Pmax): 505 W (tolleranza 0/+5 W)",
+        "Efficienza modulo: 21,27%",
+        "Garanzie: 25 anni prodotto + 30 anni lineare produzione",
+        "Tensione massima di sistema: 1500 V"
+      ],
+      "immagine": "assets/images/prodotti/peimar-or10h505m-bf.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/peimar-or10h505m-bf.pdf",
+      "link": ""
+    },
+    {
+      "id": 3,
+      "created_at": "seed",
+      "categoria": "Inverter",
+      "titolo": "INGECON® SUN 110TL M9 (Ingeteam)",
+      "descrizione": "Inverter FV trifase per impianti industriali con 9 MPPT indipendenti.",
+      "bullets": [
+        "Potenza nominale: 110 kW",
+        "Efficienza max: 98,2% (Euroeff.: 97,8%)",
+        "Protezione: IP66 (interno/esterno)",
+        "Comunicazioni: Ethernet + Wi‑Fi di serie"
+      ],
+      "immagine": "assets/images/prodotti/ingeteam-ingecon-sun-110tl-m9.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/ingeteam-ingecon-sun-110tl-m9.pdf",
+      "link": ""
+    },
+    {
+      "id": 4,
+      "created_at": "seed",
+      "categoria": "Inverter",
+      "titolo": "INGECON® SUN 30TL M3 / 50TL M4 (Ingeteam)",
+      "descrizione": "Inverter FV trifase per impianti commerciali/industriali in autoconsumo (multi‑MPPT).",
+      "bullets": [
+        "Potenza nominale: 30 kW / 50 kW",
+        "MPPT: 3 (30TL M3) / 4 (50TL M4)",
+        "Efficienza max: 98,2% (Euroeff.: 97,8%)",
+        "Protezione: IP66"
+      ],
+      "immagine": "assets/images/prodotti/ingeteam-ingecon-sun-30tl-m3-50tl-m4.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/ingeteam-ingecon-sun-30tl-m3-50tl-m4.pdf",
+      "link": ""
+    },
+    {
+      "id": 5,
+      "created_at": "seed",
+      "categoria": "Inverter",
+      "titolo": "INGECON® SUN STORAGE 3Play TL M (Ingeteam) – Ibrido trifase",
+      "descrizione": "Inverter ibrido trifase per impianti solari con accumulo (residenziale o commerciale).",
+      "bullets": [
+        "Taglie: 10 / 15 / 20 / 30 kW",
+        "MPPT: 2 o 3 (in base al modello)",
+        "Funzioni: autoconsumo, backup, peak‑shaving, EMS integrato",
+        "Protezione: IP65–IP66 (in base al modello)"
+      ],
+      "immagine": "assets/images/prodotti/ingeteam-sun-storage-3play-tl-m-e-battery-issb.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/ingeteam-sun-storage-3play-tl-m-e-battery-issb.pdf",
+      "link": ""
+    },
+    {
+      "id": 6,
+      "created_at": "seed",
+      "categoria": "Batterie",
+      "titolo": "Huawei LUNA2000 – Smart String ESS (97–200 kWh)",
+      "descrizione": "Sistema di accumulo modulare per applicazioni C&I/industrial, con Smart PCS.",
+      "bullets": [
+        "Taglie: 97 / 129 / 161 / 200 kWh (modelli LUNA2000)",
+        "Potenza max: fino a 100 kW (carica/scarica, a seconda della configurazione)",
+        "Installazione: outdoor – grado di protezione IP55",
+        "Smart PCS: 100 kW (LUNA2000‑100KTL‑M1), max eff. 98,4%"
+      ],
+      "immagine": "assets/images/prodotti/huawei-luna2000-smart-string-ess.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/huawei-luna2000-smart-string-ess.pdf",
+      "link": ""
+    },
+    {
+      "id": 7,
+      "created_at": "seed",
+      "categoria": "Batterie",
+      "titolo": "Ingeteam – Batterie ISSB (HV)",
+      "descrizione": "Soluzioni modulari ad alta tensione (LFP) per sistemi di accumulo scalabili.",
+      "bullets": [
+        "ISSB 110 HV: modulo 5,3 kWh, espandibile fino a 14 moduli in serie",
+        "ISSB 72HV 5.5kWh: design modulare e impilabile, corrente continua fino a 60 A",
+        "Vita ciclica: >7000 cicli (condizioni standard)",
+        "Garanzia indicativa: 10 anni"
+      ],
+      "immagine": "assets/images/prodotti/ingeteam-sun-storage-3play-tl-m-e-battery-issb.png",
+      "pdf": "pdf-ke-energy/schede-tecniche/ingeteam-sun-storage-3play-tl-m-e-battery-issb.pdf",
+      "link": ""
+    }
+  ],
+  "incentivi": [
+    {
+      "id": 1,
+      "created_at": "seed",
+      "titolo": "Conto Termico 3.0",
+      "descrizione": "Incentivi a fondo perduto per interventi di efficienza energetica su edifici esistenti.",
+      "stato": "Attivo",
+      "scadenza": "",
+      "bullets": [
+        "Attivo dal 26 dicembre 2025",
+        "Portale GSE aperto da febbraio 2026",
+        "Interventi: pompe di calore, biomassa, solare termico, cappotto, automazione"
+      ],
+      "immagine": "assets/img/Conto-Termico.jpg",
+      "link1": "https://www.gse.it/servizi-per-te/efficienza-energetica/conto-termico-3-0/come-accedere",
+      "link1Label": "Vai al sito",
+      "link2": "https://applicazioni.gse.it",
+      "link2Label": "Area Clienti GSE"
+    },
+    {
+      "id": 2,
+      "created_at": "seed",
+      "titolo": "PNRR Agrisolare 2026",
+      "descrizione": "Energia verde sui tetti agricoli: contributi per fotovoltaico, accumulo e rimozione amianto per aziende agricole, zootecniche e agroindustriali.",
+      "stato": "",
+      "scadenza": "30 giugno 2026",
+      "bullets": [
+        "Contributo fino all’80% a fondo perduto",
+        "Obiettivo: installazioni entro il 30 giugno 2026",
+        "Misura PNRR (M2C1 Invest. 2.2 – Parco Agrisolare)"
+      ],
+      "immagine": "assets/img/TNRR.jpg",
+      "link1": "https://www.gse.it/servizi-per-te/attuazione-misure-pnrr/parco-agrisolare",
+      "link1Label": "Vai al sito",
+      "link2": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/17914",
+      "link2Label": "Scheda MASAF"
+    },
+    {
+      "id": 3,
+      "created_at": "seed",
+      "titolo": "Nuova Impresa – Lombardia",
+      "descrizione": "Contributi per favorire l’avvio di nuove imprese e l’autoimprenditorialità in Lombardia: fino al 50% delle spese, contributo max 10.000 € (investimento min 3.000 €).",
+      "stato": "",
+      "scadenza": "15/01/2026",
+      "bullets": [
+        "Domande dal 15/01/2025 al 15/01/2026 (salvo esaurimento fondi)",
+        "Procedura a sportello (ordine cronologico)",
+        "Presentazione telematica tramite Webtelemaco"
+      ],
+      "immagine": "assets/img/Nuova-Impresa.jpg",
+      "link1": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioAvviso/servizi-e-informazioni/imprese/imprese-manifatturiere-artigiane-e-di-servizi/nuova-impresa-2025/nuova-impresa-2025",
+      "link1Label": "Vai al sito",
+      "link2": "http://webtelemaco.infocamere.it",
+      "link2Label": "Presenta domanda"
+    }
+  ],
+  "meta": {
+    "lastProdottoId": 7,
+    "lastIncentivoId": 3
+  }
+}
