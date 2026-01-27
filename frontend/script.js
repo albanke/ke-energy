@@ -469,6 +469,30 @@ if (contactForm) {
       // in caso API non disponibile non facciamo nulla
     }
   }
+// --- NASCONDI SOLO LE CATEGORIE VUOTE (SAFE) ---
+(function hideEmptyCatsSafe() {
+  const wraps = document.querySelectorAll('[id^="ke-cat-"]');
+
+  wraps.forEach((wrap) => {
+    // Se non ci sono prodotti dentro, la categoria è "vuota"
+    const hasCards =
+      wrap.querySelector('.ke-card, .product-card, .card, article, a, img') ||
+      wrap.textContent.trim().length > 0;
+
+    // Titolo: normalmente è l'H2 subito prima del wrap
+    const title = wrap.previousElementSibling;
+
+    if (!hasCards) {
+      wrap.style.display = 'none';
+      if (title && title.tagName === 'H2') title.style.display = 'none';
+    } else {
+      wrap.style.display = '';
+      if (title && title.tagName === 'H2') title.style.display = '';
+    }
+  });
+})();
+
+  
 
   
   async function bootDynamicIncentivi() {
