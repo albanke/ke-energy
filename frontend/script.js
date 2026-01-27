@@ -457,28 +457,17 @@ if (contactForm) {
 
       // Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
       // Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
+// Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
 for (const cat of CATEGORIES) {
   const wrap = document.getElementById(`ke-cat-${cat}`);
   if (!wrap) continue;
-
-  // il titolo <h2> è subito prima del contenitore
-  const title = wrap.previousElementSibling;
-
   wrap.innerHTML = '';
   const items = byCat.get(cat) || [];
-
   if (items.length) {
-    // mostra titolo + sezione
-    wrap.style.display = '';
-    if (title && title.tagName === 'H2') title.style.display = '';
-
     wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
-  } else {
-    // nascondi titolo + sezione vuota
-    wrap.style.display = 'none';
-    if (title && title.tagName === 'H2') title.style.display = 'none';
   }
 }
+
 
       }
     } catch {
