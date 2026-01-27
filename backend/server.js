@@ -18,6 +18,31 @@ import { JSONFile } from "lowdb/node";
 dotenv.config();
 
 const app = express();
+// --- CORS (FIX Render + dominio custom) ---
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || "")
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
+
+app.use((req, res, next) => {
+  // Header firma per capire se il nuovo backend è live
+  res.setHeader("X-KE-BUILD", "cors-v1");
+
+  const origin = req.headers.origin;
+
+  if (origin && (allowedOrigins.includes(origin) || allowedOrigins.length === 0)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // Se non usi cookie puoi lasciarlo, non dà fastidio
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 const PORT = Number(process.env.PORT || 3000);
 
 const __filename = fileURLToPath(import.meta.url);
