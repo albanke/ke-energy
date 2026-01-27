@@ -397,7 +397,26 @@ if (contactForm) {
       if (!document.getElementById('ke-cat-Moduli') && !document.getElementById('ke-cat-Inverter')) return;
 
       const rows = await loadPublicRows('prodotti');
-      if (!rows.length) return;
+     // anche se vuoto, continuiamo per poter nascondere le categorie senza prodotti
+if (!rows.length) {
+  // crea una mappa vuota per tutte le categorie
+  const CATEGORIES = [
+    'Moduli','Inverter','Batterie','Wallbox','Strutture','Ottimizzatori','Monitoraggio','Altro'
+  ];
+
+  for (const cat of CATEGORIES) {
+    const wrap = document.getElementById(`ke-cat-${cat}`);
+    if (!wrap) continue;
+
+    // nascondi contenitore + titolo (H2 subito prima del wrap)
+    const title = wrap.previousElementSibling;
+    wrap.innerHTML = '';
+    wrap.style.display = 'none';
+    if (title && title.tagName === 'H2') title.style.display = 'none';
+  }
+  return;
+}
+
 
       const CATEGORIES = [
         'Moduli',
@@ -455,42 +474,27 @@ if (contactForm) {
 </article>`;
       }
 
-      // Riempio (e azzero prima) i contenitori di categoria già presenti in pagina
-      for (const cat of CATEGORIES) {
-        const wrap = document.getElementById(`ke-cat-${cat}`);
-        if (!wrap) continue;
-        wrap.innerHTML = '';
-        const items = byCat.get(cat) || [];
-        if (items.length) {
-          wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
-        }
-      }
-    } catch {
-      // in caso API non disponibile non facciamo nulla
-    }
+     for (const cat of CATEGORIES) {
+  const wrap = document.getElementById(`ke-cat-${cat}`);
+  if (!wrap) continue;
+
+  const title = wrap.previousElementSibling; // di solito è l'H2 della categoria
+
+  wrap.innerHTML = '';
+  const items = byCat.get(cat) || [];
+
+  if (items.length) {
+    // mostra
+    wrap.style.display = '';
+    if (title && title.tagName === 'H2') title.style.display = '';
+    wrap.insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
+  } else {
+    // nascondi categoria vuota
+    wrap.style.display = 'none';
+    if (title && title.tagName === 'H2') title.style.display = 'none';
   }
-// --- NASCONDI SOLO LE CATEGORIE VUOTE (SAFE) ---
-(function hideEmptyCatsSafe() {
-  const wraps = document.querySelectorAll('[id^="ke-cat-"]');
+}
 
-  wraps.forEach((wrap) => {
-    // Se non ci sono prodotti dentro, la categoria è "vuota"
-    const hasCards =
-      wrap.querySelector('.ke-card, .product-card, .card, article, a, img') ||
-      wrap.textContent.trim().length > 0;
-
-    // Titolo: normalmente è l'H2 subito prima del wrap
-    const title = wrap.previousElementSibling;
-
-    if (!hasCards) {
-      wrap.style.display = 'none';
-      if (title && title.tagName === 'H2') title.style.display = 'none';
-    } else {
-      wrap.style.display = '';
-      if (title && title.tagName === 'H2') title.style.display = '';
-    }
-  });
-})();
 
   
 
