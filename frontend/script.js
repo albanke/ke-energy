@@ -397,7 +397,27 @@ if (contactForm) {
       if (!document.getElementById('ke-cat-Moduli') && !document.getElementById('ke-cat-Inverter')) return;
 
       const rows = await loadPublicRows('prodotti');
-      if (!rows.length) return;
+      if (!rows.length) {
+        // Nessun prodotto: nascondi tutte le categorie e mostra messaggio
+        const wraps = document.querySelectorAll('[id^="ke-cat-"]');
+        wraps.forEach(w => {
+          const title = w.previousElementSibling;
+          w.style.display = 'none';
+          if (title && title.tagName === 'H2') title.style.display = 'none';
+        });
+        const msgId = 'ke-no-products';
+        if (!document.getElementById(msgId)) {
+          const first = document.querySelector('[id^="ke-cat-"]');
+          const host = first ? (first.parentElement || first) : document.querySelector('.container') || document.body;
+          const div = document.createElement('div');
+          div.id = msgId;
+          div.className = 'card reveal';
+          div.style.marginTop = '18px';
+          div.innerHTML = '<p class="muted">Nessun prodotto disponibile al momento. Torna a trovarci più tardi.</p>';
+          host.appendChild(div);
+        }
+        return;
+      }
 
       const CATEGORIES = [
         'Moduli',
@@ -487,7 +507,27 @@ if (contactForm) {
     // Incentivi (bandi-appalti): render nella lista dedicata.
     try {
       const rows = await loadPublicRows('incentivi');
-      if (!rows.length) return;
+      if (!rows.length) {
+        // Nessun prodotto: nascondi tutte le categorie e mostra messaggio
+        const wraps = document.querySelectorAll('[id^="ke-cat-"]');
+        wraps.forEach(w => {
+          const title = w.previousElementSibling;
+          w.style.display = 'none';
+          if (title && title.tagName === 'H2') title.style.display = 'none';
+        });
+        const msgId = 'ke-no-products';
+        if (!document.getElementById(msgId)) {
+          const first = document.querySelector('[id^="ke-cat-"]');
+          const host = first ? (first.parentElement || first) : document.querySelector('.container') || document.body;
+          const div = document.createElement('div');
+          div.id = msgId;
+          div.className = 'card reveal';
+          div.style.marginTop = '18px';
+          div.innerHTML = '<p class="muted">Nessun prodotto disponibile al momento. Torna a trovarci più tardi.</p>';
+          host.appendChild(div);
+        }
+        return;
+      }
 
       const list = document.getElementById('ke-incentivi-list');
       if (!list) return; // evita di toccare altre pagine

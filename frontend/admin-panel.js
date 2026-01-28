@@ -393,6 +393,7 @@
       if(btn){ btn.disabled = true; }
       try {
         await login(u, p);
+      startAutoRefresh();
         showAuthedUI();
         setMsg(els.adminMsg, 'ok', 'Login effettuato.');
         state.page = 1;
@@ -645,3 +646,20 @@
     loadIncentivi().catch(() => {});
   }
 })();
+
+  // AUTO REFRESH CONTATTI (per vedere subito i nuovi moduli)
+  let _autoRefreshTimer = null;
+  function startAutoRefresh(){
+    if(_autoRefreshTimer) return;
+    _autoRefreshTimer = setInterval(() => {
+      try{
+        const token = getToken();
+        const panel = document.getElementById('contattiPanel');
+        const visible = panel && !panel.classList.contains('hide');
+        if(token && visible){
+          loadContatti().catch(() => {});
+        }
+      }catch(e){}
+    }, 15000);
+  }
+
