@@ -103,6 +103,87 @@ input,select,textarea{
   .ke-links{display:none}
   .ke-toppad{padding-top:78px}
 }
+
+/* ===== Mobile hamburger (JS-injected) ===== */
+.ke-menu-toggle{
+  display:none;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.ke-menu-toggle span{display:block; width:18px; height:2px; background: rgba(255,255,255,.88); border-radius:2px;}
+.ke-mobile-overlay{
+  position:fixed; inset:0; background: rgba(0,0,0,.55);
+  z-index:1200;
+}
+.ke-mobile-drawer{
+  position:fixed;
+  top:0; right:0;
+  height:100vh;
+  width:min(86vw, 360px);
+  background: rgba(10,10,12,.96);
+  border-left:1px solid rgba(255,255,255,.10);
+  z-index:1300;
+  transform: translateX(102%);
+  transition: transform .18s ease;
+  padding: 88px 18px 18px;
+}
+.ke-mobile-drawer.is-open{ transform: translateX(0); }
+.ke-mobile-menu{ display:flex; flex-direction:column; gap:10px; }
+.ke-mobile-menu a{
+  padding: 12px 12px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  opacity: 1;
+}
+.ke-mobile-menu a.is-cta{
+  border-color: rgba(74,222,128,.40);
+  background: rgba(74,222,128,.12);
+}
+.ke-no-scroll{ overflow:hidden; }
+
+@media (max-width: 980px){
+  .ke-menu-toggle{ display:inline-flex; }
+}
+
+/* Home headings on mobile ("L'ECCELLENZA ITALIANA", "AMBITI DI INTERVENTO") */
+@media (max-width: 520px){
+  .ke-panel-inner h2{
+    font-size: 1.9rem !important;
+    line-height: 1.05 !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .ke-panel-inner .ke-outline{ display:inline; }
+}
+
+/* ===== Preventivo tabs: keep inactive label readable on light card ===== */
+.reonicCard .quoteTabs{ background: rgba(0,0,0,.03) !important; border-color: rgba(0,0,0,.07) !important; }
+.reonicCard .quoteTab{ background: transparent !important; color:#0f172a !important; border:1px solid rgba(0,0,0,.10) !important; }
+.reonicCard .quoteTab:hover{ background: rgba(0,0,0,.04) !important; }
+.reonicCard .quoteTab.is-active{ background:#0b1220 !important; color:#fff !important; border-color: rgba(0,0,0,.10) !important; }
+
+/* ===== Page titles: prevent overflow on mobile ===== */
+.pageHero h1, .pageHero h2{ overflow-wrap:anywhere; word-break:break-word; }
+
+/* ===== Footer mobile layout (avoid "storto") ===== */
+@media (max-width: 980px){
+  .ke-footer .row{ flex-direction:column; align-items:flex-start; }
+  .ke-footer .row > div:nth-child(2){
+    width:100%;
+    justify-content:flex-start !important;
+    align-items:flex-start !important;
+    flex-direction:column;
+    gap:14px !important;
+  }
+  .ke-footer .row > div:nth-child(2) > div{ margin-left:0 !important; }
+}
 /* --- kill legacy chrome (old header/footer) --- */
 .topbar, header.header, .header, nav.nav, .site-header { display:none !important; }
 footer.footer { display:none !important; }

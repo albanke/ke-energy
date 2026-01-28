@@ -112,11 +112,29 @@ if (counters.length) {
 // CONTACT FORM -> BACKEND
 const contactForm = document.querySelector('form[data-api="contatti"]');
 if (contactForm) {
+  // Status message under the button (avoids "stuck" state when alerts are blocked)
+  const ensureStatusEl = () => {
+    let el = contactForm.querySelector('.ke-form-status');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'ke-form-status';
+      el.setAttribute('role', 'status');
+      el.setAttribute('aria-live', 'polite');
+      el.style.marginTop = '10px';
+      el.style.fontSize = '0.95rem';
+      el.style.opacity = '0.9';
+      contactForm.appendChild(el);
+    }
+    return el;
+  };
+
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : "";
+    const statusEl = ensureStatusEl();
+    statusEl.textContent = "";
     if (btn) {
       btn.disabled = true;
       btn.textContent = "Invio in corso...";
@@ -139,21 +157,113 @@ if (contactForm) {
 
       if (!res.ok) {
         const msg = data?.error || "Errore durante l'invio. Riprova.";
-        alert(msg);
+        statusEl.textContent = msg;
       } else {
-        alert("Messaggio inviato correttamente. Ti ricontatteremo al più presto.");
+        statusEl.textContent = "Messaggio inviato correttamente. Ti ricontatteremo al più presto.";
         contactForm.reset();
       }
     } catch {
-      alert("Connessione non disponibile. Riprova tra poco.");
+      statusEl.textContent = "Connessione non disponibile. Riprova tra poco.";
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.textContent = originalText;
+        // Use a safe label even if the DOM changed
+        btn.textContent = originalText && originalText.trim() ? originalText : "Invia richiesta";
       }
     }
   });
 }
+
+// ===== Mobile hamburger for KE nav (inject once, works on every page) =====
+(function(){
+  const nav = document.querySelector('.ke-nav');
+  if (!nav) return;
+
+  // Avoid duplicates
+  if (nav.querySelector('.ke-menu-toggle')) return;
+
+  const linksWrap = nav.querySelector('.ke-links');
+  if (!linksWrap) return;
+
+  const btn = document.createElement('button');
+  btn.className = 'ke-menu-toggle';
+  btn.type = 'button';
+  btn.setAttribute('aria-label','Menu');
+  btn.setAttribute('aria-expanded','false');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+
+  const drawer = document.createElement('div');
+  drawer.className = 'ke-mobile-drawer';
+  drawer.setAttribute('aria-hidden','true');
+
+  const overlay = document.createElement('div');
+  overlay.className = 'ke-mobile-overlay';
+  overlay.hidden = true;
+
+  // Build menu from existing links (and remove "Certificazioni" if present)
+  const menu = document.createElement('nav');
+  menu.className = 'ke-mobile-menu';
+  const anchors = Array.from(linksWrap.querySelectorAll('a')).filter(a => {
+    const href = (a.getAttribute('href')||'').toLowerCase();
+    const txt = (a.textContent||'').toLowerCase();
+    return !(href.includes('certific') || txt.includes('certific'));
+  });
+  anchors.forEach(a => {
+    const item = document.createElement('a');
+    item.href = a.getAttribute('href');
+    item.textContent = a.textContent;
+    if (a.classList.contains('ke-cta')) item.classList.add('is-cta');
+    menu.appendChild(item);
+  });
+  drawer.appendChild(menu);
+
+  const closeAll = () => {
+    overlay.hidden = true;
+    drawer.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+    drawer.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('ke-no-scroll');
+  };
+  const openAll = () => {
+    overlay.hidden = false;
+    drawer.classList.add('is-open');
+    btn.setAttribute('aria-expanded','true');
+    drawer.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('ke-no-scroll');
+  };
+
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    expanded ? closeAll() : openAll();
+  });
+  overlay.addEventListener('click', closeAll);
+  window.addEventListener('keydown', (e) => { if(e.key==='Escape') closeAll(); });
+  menu.addEventListener('click', (e) => { if (e.target && e.target.tagName === 'A') closeAll(); });
+
+  nav.appendChild(btn);
+  document.body.appendChild(overlay);
+  document.body.appendChild(drawer);
+})();
+
+// ===== Footer: add Login link next to Privacy, with same styling =====
+(function(){
+  const footer = document.querySelector('.ke-footer');
+  if (!footer) return;
+  const linkGroups = footer.querySelectorAll('a');
+  // If already present, stop
+  if (Array.from(linkGroups).some(a => (a.getAttribute('href')||'').includes('login'))) return;
+
+  // Find the small links container (the one that contains Privacy)
+  const privacy = Array.from(linkGroups).find(a => (a.getAttribute('href')||'').includes('privacy'));
+  if (!privacy) return;
+  const wrap = privacy.parentElement;
+  if (!wrap) return;
+
+  const login = document.createElement('a');
+  login.href = 'login.html';
+  login.textContent = 'Login';
+  wrap.appendChild(login);
+})();
 
 // prodotti slider (home) – loop infinito "a scatti" + frecce
 (function () {

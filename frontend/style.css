@@ -819,6 +819,8 @@ input:focus, textarea:focus{
   .hero__inner{ grid-template-columns: 1fr; }
   .split{ grid-template-columns: 1fr; }
   .cards{ grid-template-columns: 1fr; }
+  /* Prodotti: su mobile mostra 2 card per riga (1 solo su schermi molto stretti) */
+  body.page-prodotti .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); }
   .listCards{ grid-template-columns: 1fr; }
   .partnerGrid{ grid-template-columns: 1fr; }
   .stats{ grid-template-columns: 1fr; }
@@ -828,6 +830,10 @@ input:focus, textarea:focus{
   .mediaImg{ height: 300px; }
   .mediaVideo{ height: 300px; }
   .brand__logo{ width: 96px; height: 96px; }
+}
+
+@media (max-width: 520px){
+  body.page-prodotti .cards{ grid-template-columns: 1fr; }
 }
 
 /* ==============================
