@@ -1,0 +1,769 @@
+/* ============================================================
+   KE ENERGY — Advanced Animations & Visual Enhancements
+   ============================================================ */
+
+/* ── 1. ROOT TRANSITIONS & CURSOR ── */
+:root {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-fast: 0.22s;
+  --dur-med: 0.48s;
+  --dur-slow: 0.88s;
+}
+
+/* ── 2. CUSTOM CURSOR ── */
+.ke-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s linear, width 0.2s var(--ease-spring), height 0.2s var(--ease-spring), opacity 0.3s;
+  will-change: transform;
+}
+.ke-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(74,222,128,0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s var(--ease-out),
+              width 0.25s var(--ease-spring),
+              height 0.25s var(--ease-spring),
+              border-color 0.2s,
+              opacity 0.3s;
+  will-change: transform;
+}
+body:hover .ke-cursor,
+body:hover .ke-cursor-ring { opacity: 1; }
+
+a:hover ~ .ke-cursor,
+button:hover ~ .ke-cursor,
+.ke-btn:hover ~ .ke-cursor {
+  width: 20px; height: 20px;
+}
+
+/* ── 3. PAGE LOAD INTRO ── */
+.ke-page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  background: #030303;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s var(--ease-out), visibility 0.6s;
+}
+.ke-page-loader.ke-loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.ke-loader-inner {
+  text-align: center;
+}
+.ke-loader-logo {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #fff;
+  animation: loaderPulse 1.4s ease-in-out infinite;
+}
+.ke-loader-bar {
+  width: 160px;
+  height: 2px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 99px;
+  margin: 18px auto 0;
+  overflow: hidden;
+}
+.ke-loader-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  animation: loaderBar 1.2s var(--ease-out) forwards;
+}
+@keyframes loaderBar {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes loaderPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+/* ── 4. NOISE OVERLAY ── */
+.ke-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+  animation: noiseShift 0.12s steps(1) infinite;
+}
+@keyframes noiseShift {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -30px 15px; }
+  50%  { background-position: 20px -25px; }
+  75%  { background-position: -15px -10px; }
+  100% { background-position: 10px 20px; }
+}
+
+/* ── 5. SCANLINE EFFECT on hero ── */
+.ke-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.03) 3px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.ke-copy { position: relative; z-index: 2; }
+
+/* ── 6. HERO GLITCH TITLE ── */
+.ke-hero h1 {
+  position: relative;
+  animation: heroEntrance 1.2s var(--ease-out) both;
+}
+@keyframes heroEntrance {
+  0%   { opacity: 0; transform: translateY(40px) skewX(-4deg); filter: blur(12px); }
+  60%  { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) skewX(0deg); }
+}
+
+.ke-hero h1::before,
+.ke-hero h1::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.ke-hero h1.ke-glitch::before {
+  color: var(--accent);
+  animation: glitch1 3.5s steps(1) infinite 2s;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+}
+.ke-hero h1.ke-glitch::after {
+  color: #ff3b55;
+  animation: glitch2 3.5s steps(1) infinite 2s;
+  clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%);
+}
+@keyframes glitch1 {
+  0%, 94%, 100% { opacity: 0; transform: translate(0); }
+  95%  { opacity: 0.75; transform: translate(-4px, 1px); }
+  96%  { opacity: 0.60; transform: translate(4px, -1px); }
+  97%  { opacity: 0;    transform: translate(0); }
+}
+@keyframes glitch2 {
+  0%, 94%, 100% { opacity: 0; transform: translate(0); }
+  95%  { opacity: 0.65; transform: translate(4px, -2px); }
+  96%  { opacity: 0.50; transform: translate(-4px, 1px); }
+  97%  { opacity: 0;    transform: translate(0); }
+}
+
+/* ── 7. KICKER ANIMATED REVEAL ── */
+.ke-kicker {
+  overflow: hidden;
+  animation: kickerSlide 0.9s var(--ease-out) 0.3s both;
+}
+@keyframes kickerSlide {
+  from { opacity: 0; transform: translateX(-30px) skewX(8deg); }
+  to   { opacity: 0.65; transform: translateX(0) skewX(0); }
+}
+
+/* ── 8. HERO PARAGRAPH ── */
+.ke-hero p {
+  animation: fadeSlideUp 1s var(--ease-out) 0.6s both;
+}
+.ke-actions {
+  animation: fadeSlideUp 1s var(--ease-out) 0.85s both;
+}
+.ke-badge {
+  animation: fadeSlideUp 1s var(--ease-out) 1.0s both;
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 9. BUTTONS — premium hover ── */
+.ke-btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-med) var(--ease-out),
+    background var(--dur-fast),
+    color var(--dur-fast),
+    border-color var(--dur-fast) !important;
+  will-change: transform;
+}
+.ke-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.ke-btn:hover::before  { opacity: 1; }
+.ke-btn:hover          { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+.ke-btn:active         { transform: translateY(0) scale(0.98); }
+
+.ke-btn--accent {
+  box-shadow: 0 0 0 0 rgba(74,222,128,0);
+  animation: accentPulse 3s ease-in-out infinite 2s;
+}
+.ke-btn--accent:hover  {
+  animation: none;
+  box-shadow: 0 0 24px rgba(74,222,128,0.5), 0 8px 28px rgba(0,0,0,0.3);
+}
+@keyframes accentPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  50%       { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+}
+
+/* ── 10. NAVIGATION ── */
+.ke-nav {
+  transition: padding var(--dur-med) var(--ease-out),
+              background var(--dur-med);
+}
+.ke-nav.ke-nav--scrolled {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  background: rgba(3,3,3,0.92) !important;
+  backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ke-links a {
+  position: relative;
+}
+.ke-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 6px; right: 6px;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s var(--ease-out);
+}
+.ke-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── 11. CARDS — hover lift & shine ── */
+.ke-card {
+  transition:
+    transform var(--dur-med) var(--ease-spring),
+    box-shadow var(--dur-med) var(--ease-out),
+    border-color var(--dur-fast) !important;
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+}
+.ke-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.045) 50%,
+    transparent 80%
+  );
+  transform: skewX(-20deg) translateX(0);
+  transition: transform 0.6s var(--ease-out);
+  pointer-events: none;
+}
+.ke-card:hover::after { transform: skewX(-20deg) translateX(500%); }
+.ke-card:hover {
+  transform: translateY(-5px) scale(1.012);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  border-color: rgba(74,222,128,0.25) !important;
+}
+
+/* ── 12. CARD-MEDIA image zoom ── */
+.ke-card--media { overflow: hidden; }
+.ke-card--media .ke-card-img {
+  transition: transform 0.8s var(--ease-out), filter 0.5s;
+}
+.ke-card--media:hover .ke-card-img {
+  transform: scale(1.06);
+  filter: brightness(1.1) contrast(1.02);
+}
+
+/* ── 13. SECTION HEADINGS — kinetic underline ── */
+.ke-section h2,
+.ke-panel-inner h2 {
+  position: relative;
+  display: inline-block;
+}
+.ke-section h2::after,
+.ke-panel-inner h2::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 99px;
+  transition: width 0.9s var(--ease-out);
+}
+.ke-section h2.ke-in-view::after,
+.ke-panel-inner h2.ke-in-view::after {
+  width: 100%;
+}
+
+/* ── 14. FLOATING PARTICLES (hero) ── */
+.ke-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.ke-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  animation: particleFloat var(--dur, 8s) ease-in-out infinite var(--delay, 0s);
+}
+@keyframes particleFloat {
+  0%   { opacity: 0;    transform: translateY(0) translateX(0) scale(0.5); }
+  20%  { opacity: 0.35; }
+  80%  { opacity: 0.15; }
+  100% { opacity: 0;    transform: translateY(-110vh) translateX(var(--drift, 30px)) scale(1.2); }
+}
+
+/* ── 15. STAT COUNTER HIGHLIGHT ── */
+.ke-stat {
+  position: relative;
+}
+.ke-stat-num {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  transition: transform 0.4s var(--ease-spring);
+}
+.ke-stat:hover .ke-stat-num { transform: scale(1.08); }
+
+/* ── 16. HORIZONTAL SCROLL TRACK shadow fades ── */
+.ke-hscroll::before,
+.ke-hscroll::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s;
+}
+.ke-hscroll::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(3,3,3,0.7), transparent);
+}
+.ke-hscroll::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(3,3,3,0.7), transparent);
+}
+
+/* ── 17. SLIDE CARDS (products/ambiti) ── */
+.ke-slide {
+  transition: transform var(--dur-med) var(--ease-spring),
+              filter var(--dur-med);
+}
+.ke-slide:hover {
+  transform: translateY(-4px) scale(1.015);
+  filter: brightness(1.05);
+  z-index: 2;
+}
+
+/* ── 18. FOOTER reveal ── */
+.ke-footer {
+  animation: none; /* driven by scroll observer instead */
+}
+.ke-footer.ke-in-view {
+  animation: footerSlide 0.9s var(--ease-out) both;
+}
+@keyframes footerSlide {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 0.85; transform: translateY(0); }
+}
+
+/* ── 19. NEWSLETTER section ── */
+.ke-newsletter {
+  position: relative;
+  overflow: hidden;
+}
+.ke-newsletter::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(74,222,128,0.10), transparent 65%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: nlGlow 4s ease-in-out infinite alternate;
+}
+@keyframes nlGlow {
+  from { transform: translateX(-50%) scale(0.9); opacity: 0.7; }
+  to   { transform: translateX(-50%) scale(1.15); opacity: 1; }
+}
+.ke-newsletter__input {
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s var(--ease-spring) !important;
+}
+.ke-newsletter__input:focus {
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.2) !important;
+  transform: scale(1.01) !important;
+}
+.ke-newsletter__btn {
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.25s, opacity 0.2s !important;
+}
+.ke-newsletter__btn:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 8px 24px rgba(74,222,128,0.3) !important;
+}
+
+/* ── 20. PANEL backgrounds — animated gradient ── */
+.ke-panel {
+  position: relative;
+}
+.ke-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 50%, rgba(74,222,128,0.04), transparent),
+    radial-gradient(ellipse 60% 80% at 85% 30%, rgba(255,255,255,0.02), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: panelGrad 12s ease-in-out infinite alternate;
+}
+@keyframes panelGrad {
+  from { opacity: 0.7; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.03); }
+}
+.ke-panel-inner { position: relative; z-index: 1; }
+
+/* ── 21. ACCENT BADGE pulse ── */
+.ke-badge {
+  animation: fadeSlideUp 1s var(--ease-out) 1.0s both, badgePulse 3s ease-in-out 3s infinite !important;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  50%       { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+}
+
+/* ── 22. OUTLINE text shimmer ── */
+.ke-outline {
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.92) 0%,
+    rgba(74,222,128,0.8) 50%,
+    rgba(255,255,255,0.92) 100%
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0 !important;
+  color: transparent !important;
+  animation: outlineShimmer 6s linear infinite 2s;
+}
+@keyframes outlineShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── 23. MOBILE: reduce animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ke-cursor, .ke-cursor-ring, .ke-noise { display: none !important; }
+}
+
+/* ── 24. SECTION SCROLL FADE (fallback without GSAP) ── */
+.ke-reveal-fade {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.ke-reveal-fade.ke-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 25. LOGO hover spin ── */
+.ke-logo img {
+  transition: transform 0.6s var(--ease-spring), filter 0.3s;
+}
+.ke-logo:hover img {
+  transform: rotate(-8deg) scale(1.08);
+  filter: drop-shadow(0 0 8px rgba(74,222,128,0.5));
+}
+
+/* ── 26. SCROLLBAR STYLED ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #030303; }
+::-webkit-scrollbar-thumb {
+  background: rgba(74,222,128,0.4);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(74,222,128,0.7); }
+
+/* ── 27. MAGNETIC HOVER preparation ── */
+[data-magnetic] {
+  transition: transform 0.4s var(--ease-spring);
+  display: inline-block;
+}
+
+/* ── 28. KE CARD h3 highlight ── */
+.ke-card h3 {
+  transition: color 0.2s, letter-spacing 0.3s;
+}
+.ke-card:hover h3 {
+  color: var(--accent) !important;
+  letter-spacing: 0.02em;
+}
+
+/* ── 29. PROGRESS INDICATOR top bar ── */
+.ke-scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #22d3ee);
+  z-index: 100000;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(74,222,128,0.6);
+}
+
+/* ── 30. HERO SCROLL INDICATOR ── */
+.ke-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.45;
+  animation: hintFade 1.2s var(--ease-out) 2s both;
+  z-index: 2;
+  pointer-events: none;
+}
+.ke-scroll-hint span {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: #fff;
+}
+.ke-scroll-hint-arrow {
+  width: 20px;
+  height: 32px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 99px;
+  position: relative;
+  overflow: hidden;
+}
+.ke-scroll-hint-arrow::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 99px;
+  animation: scrollDot 1.6s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0%   { top: 5px; opacity: 1; }
+  80%  { opacity: 0; }
+  100% { top: 18px; opacity: 0; }
+}
+@keyframes hintFade {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 0.45; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── 31. PANEL dividers animated ── */
+.ke-panel + .ke-panel::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 85% 50%, rgba(74,222,128,0.05), transparent),
+    radial-gradient(ellipse 60% 80% at 15% 30%, rgba(255,255,255,0.02), transparent);
+}
+
+/* ── 32. INCENTIVI CARD image overlay glow on hover ── */
+#incentivi .ke-card--media:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(74,222,128,0.18), transparent 50%);
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   SKELETON LOADER — Prodotti & Incentivi
+   ═══════════════════════════════════════════ */
+
+/* Shimmer keyframe */
+@keyframes skeletonShimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+/* Base skeleton block */
+.ke-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.09) 37%,
+    rgba(255,255,255,0.04) 63%
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+/* Loader wrapper */
+.ke-loading-wrap {
+  padding: 12px 0 32px;
+}
+
+/* Status bar: spinner + testo */
+.ke-loading-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.ke-loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(74,222,128,0.20);
+  border-top-color: var(--accent, #4ade80);
+  border-radius: 50%;
+  animation: spinnerRotate 0.75s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spinnerRotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Skeleton card grid */
+.ke-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+.ke-skeleton-card {
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+  padding: 0 0 22px;
+}
+.ke-skeleton-img {
+  width: 100%;
+  height: 190px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.09) 37%,
+    rgba(255,255,255,0.04) 63%
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+  margin-bottom: 18px;
+}
+.ke-skeleton-body {
+  padding: 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ke-skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.09) 37%,
+    rgba(255,255,255,0.04) 63%
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+}
+.ke-skeleton-line.ke-sk-title  { width: 65%; height: 16px; }
+.ke-skeleton-line.ke-sk-short  { width: 40%; }
+.ke-skeleton-line.ke-sk-full   { width: 100%; }
+.ke-skeleton-line.ke-sk-medium { width: 78%; }
+
+/* Stagger delays for the 3 cards */
+.ke-skeleton-card:nth-child(1) .ke-skeleton-img,
+.ke-skeleton-card:nth-child(1) .ke-skeleton-line { animation-delay: 0s; }
+.ke-skeleton-card:nth-child(2) .ke-skeleton-img,
+.ke-skeleton-card:nth-child(2) .ke-skeleton-line { animation-delay: 0.15s; }
+.ke-skeleton-card:nth-child(3) .ke-skeleton-img,
+.ke-skeleton-card:nth-child(3) .ke-skeleton-line { animation-delay: 0.30s; }
+
+
+
+/* Fade-in when content replaces skeleton */
+.ke-content-ready {
+  animation: contentFadeIn 0.5s ease-out both;
+}
+@keyframes contentFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

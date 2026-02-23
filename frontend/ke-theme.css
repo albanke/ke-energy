@@ -1,0 +1,633 @@
+/* KE Premium Theme (non distrugge la struttura: aggiunge look&feel) */
+:root{
+  --accent:#4ade80;
+  --bg:#030303;
+  --white:#ffffff;
+  --muted:rgba(255,255,255,.72);
+  --card:rgba(255,255,255,.04);
+  --line:rgba(255,255,255,.10);
+}
+
+
+body{
+  font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+  overflow-x:hidden;
+}
+
+/* NAV blur (nuovo) */
+.ke-nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  padding:18px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  z-index:9999;
+  background:linear-gradient(to bottom, rgba(3,3,3,.78), rgba(3,3,3,0));
+  backdrop-filter: blur(8px);
+}
+.ke-logo{
+  display:flex; align-items:center; gap:12px;
+  font-family:'Unbounded',system-ui,sans-serif;
+  letter-spacing:-1px;
+  font-size:1.05rem;
+  text-transform:uppercase;
+}
+.ke-logo img{height:34px; width:auto; display:block}
+.ke-links{display:flex; gap:18px; align-items:center}
+.ke-links a{
+  color:var(--white) !important;
+  font-weight:800;
+  font-size:.70rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  opacity:.72;
+  padding:10px 6px;
+  transition:.22s ease;
+}
+.ke-links a:hover{opacity:1; color:var(--accent) !important}
+.ke-cta{
+  background:rgba(74,222,128,.14);
+  border:1px solid rgba(74,222,128,.35);
+  border-radius:999px;
+  padding:10px 14px !important;
+  opacity:1 !important;
+}
+
+/* spazio per nav */
+.ke-toppad{padding-top:88px}
+
+/* Tipografia (solo se non rompe) */
+h1,h2,h3,h4,.title,.hero__title{
+  font-family:'Unbounded',system-ui,sans-serif !important;
+  text-transform:uppercase;
+}
+
+/* Card look (molti blocchi esistenti) */
+.card, .box, .panel, .tile, .service, .feature, .quote, .content-card{
+  background:var(--card) !important;
+  border-color:var(--line) !important;
+  color:var(--white) !important;
+}
+
+/* Link accento */
+a{color:inherit}
+a:hover{color:var(--accent)}
+
+/* Footer */
+/* ── Newsletter Section ── */
+.ke-newsletter{
+  padding: 72px 5%;
+  background: var(--bg2);
+  border-top: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  text-align: center;
+}
+.ke-newsletter__inner{
+  max-width: 560px;
+  margin: 0 auto;
+}
+.ke-newsletter__tag{
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(74,222,128,.10);
+  border: 1px solid rgba(74,222,128,.25);
+  border-radius: 999px;
+  padding: 4px 14px;
+  margin-bottom: 20px;
+  font-family: 'Unbounded', system-ui, sans-serif;
+}
+.ke-newsletter h2{
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-weight: 800;
+  color: var(--white) !important;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+.ke-newsletter p{
+  font-size: .95rem;
+  opacity: .70;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+.ke-newsletter__form{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.ke-newsletter__input{
+  flex: 1 1 240px;
+  padding: 13px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  background: rgba(255,255,255,.05) !important;
+  color: var(--white) !important;
+  font-size: .95rem;
+  font-family: 'Outfit', system-ui, sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+.ke-newsletter__input::placeholder{ color: rgba(255,255,255,.35); }
+.ke-newsletter__input:focus{ border-color: var(--accent) !important; }
+.ke-newsletter__btn{
+  padding: 13px 28px;
+  background: var(--accent);
+  color: #0b0c0e;
+  font-weight: 700;
+  font-size: .9rem;
+  font-family: 'Unbounded', system-ui, sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .2s, transform .15s;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.ke-newsletter__btn:hover{ opacity: .88; transform: translateY(-1px); }
+.ke-newsletter__msg{
+  margin-top: 14px;
+  font-size: .88rem;
+  border-radius: 6px;
+  padding: 10px 16px;
+  display: none;
+}
+.ke-newsletter__msg.success{ display:block; background: rgba(74,222,128,.12); color: var(--accent); border: 1px solid rgba(74,222,128,.25); }
+.ke-newsletter__msg.error{ display:block; background: rgba(255,73,73,.10); color: #ff6b6b; border: 1px solid rgba(255,73,73,.25); }
+@media(max-width:600px){
+  .ke-newsletter__form{ flex-direction: column; }
+  .ke-newsletter__input, .ke-newsletter__btn{ width: 100%; flex: none; }
+}
+
+/* Footer: remove top margin since newsletter already separates it */
+.ke-footer{ margin-top:0;
+  padding:60px 5%;
+  border-top:1px solid rgba(255,255,255,.08);
+  opacity:.85;
+}
+/* ── end newsletter ── */
+.ke-footer .row{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap}
+.ke-footer a{opacity:.75}
+.ke-footer a:hover{opacity:1; color:var(--accent)}
+
+/* Login nel footer: volutamente poco visibile */
+.ke-footer a.ke-footer-login{opacity:.45}
+.ke-footer a.ke-footer-login:hover{opacity:.85; color:var(--accent)}
+.ke-small{font-size:.85rem; opacity:.78}
+
+/* Inputs */
+input,select,textarea{
+  background:#0f0f12 !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  color:var(--white) !important;
+  border-radius:12px !important;
+}
+
+/* Mobile */
+@media (max-width: 980px){
+  .ke-links{display:none}
+  .ke-toppad{padding-top:78px}
+}
+
+/* ===== Mobile hamburger (JS-injected) ===== */
+.ke-menu-toggle{
+  display:none;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.ke-menu-toggle span{display:block; width:18px; height:2px; background: rgba(255,255,255,.88); border-radius:2px;}
+.ke-mobile-overlay{
+  position:fixed; inset:0; background: rgba(0,0,0,.55);
+  z-index:1200;
+}
+.ke-mobile-drawer{
+  position:fixed;
+  top:0; right:0;
+  height:100vh;
+  width:min(86vw, 360px);
+  background: rgba(10,10,12,.96);
+  border-left:1px solid rgba(255,255,255,.10);
+  z-index:1300;
+  transform: translateX(102%);
+  transition: transform .18s ease;
+  padding: 88px 18px 18px;
+}
+.ke-mobile-drawer.is-open{ transform: translateX(0); }
+.ke-mobile-menu{ display:flex; flex-direction:column; gap:10px; }
+.ke-mobile-menu a{
+  padding: 12px 12px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  opacity: 1;
+}
+.ke-mobile-menu a.is-cta{
+  border-color: rgba(74,222,128,.40);
+  background: rgba(74,222,128,.12);
+}
+.ke-no-scroll{ overflow:hidden; }
+
+@media (max-width: 980px){
+  .ke-menu-toggle{ display:inline-flex; }
+}
+
+/* Home headings on mobile ("L'ECCELLENZA ITALIANA", "AMBITI DI INTERVENTO") */
+@media (max-width: 520px){
+  .ke-panel-inner h2{
+    font-size: 1.9rem !important;
+    line-height: 1.05 !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .ke-panel-inner .ke-outline{ display:inline; }
+}
+
+/* ===== Preventivo tabs: keep inactive label readable on light card ===== */
+.reonicCard .quoteTabs{ background: rgba(0,0,0,.03) !important; border-color: rgba(0,0,0,.07) !important; }
+.reonicCard .quoteTab{ background: transparent !important; color:#0f172a !important; border:1px solid rgba(0,0,0,.10) !important; }
+.reonicCard .quoteTab:hover{ background: rgba(0,0,0,.04) !important; }
+.reonicCard .quoteTab.is-active{ background:#0b1220 !important; color:#fff !important; border-color: rgba(0,0,0,.10) !important; }
+
+/* ===== Page titles: prevent overflow on mobile ===== */
+.pageHero h1, .pageHero h2{ overflow-wrap:anywhere; word-break:break-word; }
+
+/* ===== Footer mobile layout (avoid "storto") ===== */
+@media (max-width: 980px){
+  .ke-footer .row{ flex-direction:column; align-items:flex-start; }
+  .ke-footer .row > div:nth-child(2){
+    width:100%;
+    justify-content:flex-start !important;
+    align-items:flex-start !important;
+    flex-direction:column;
+    gap:14px !important;
+  }
+  .ke-footer .row > div:nth-child(2) > div{ margin-left:0 !important; }
+}
+/* --- kill legacy chrome (old header/footer) --- */
+.topbar, header.header, .header, nav.nav, .site-header { display:none !important; }
+footer.footer { display:none !important; }
+
+/* --- force readable text on dark --- */
+h1,h2,h3,h4,h5,h6 { color: var(--white) !important; }
+small, .muted { color: rgba(255,255,255,.72) !important; }
+
+/* neutralize any white page backgrounds from legacy css */
+section, main, .pageHero, .section { background: transparent !important; }
+
+/* Light cards: testo scuro su box chiari */
+.ke-card--light{
+  background: rgba(255,255,255,.92) !important;
+  color: #0b0b0f !important;
+  border-top-color: rgba(0,0,0,.08) !important;
+}
+.ke-card--light h3, .ke-card--light p, .ke-card--light li, .ke-card--light a{
+  color: #0b0b0f !important;
+}
+.ke-card--light p{opacity:.85 !important}
+.ke-card--light a:hover{color:#0b0b0f !important}
+
+/* Immagini dentro le card */
+.ke-card-img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+  border-radius:14px;
+  margin-bottom:16px;
+}
+
+/* Se un blocco ha sfondo bianco (inline), forza testo scuro */
+[style*="background:#fff"], [style*="background: #fff"], [style*="background:white"], [style*="background: white"]{
+  color:#0b0b0f !important;
+}
+[style*="background:#fff"] *, [style*="background: #fff"] *, [style*="background:white"] *, [style*="background: white"] *{
+  color:#0b0b0f !important;
+}
+
+/* WhatsApp / contatti: se ci sono box chiari, testo scuro */
+.whatsapp, .whatsapp *, .contact, .contact *, .contatti, .contatti *{
+  color: inherit;
+}
+
+/* --- Global fixed background video for whole site --- */
+.ke-site-bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+.ke-site-bg video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(1.05) contrast(1.05) brightness(.55);
+  transform: scale(1.02);
+}
+.ke-site-bg__overlay{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(closest-side, rgba(74,222,128,.18), transparent 60%),
+    linear-gradient(to bottom, rgba(3,3,3,.35), rgba(3,3,3,.92));
+}
+
+/* Ensure main content sits above */
+main, .ke-nav, .ke-footer{position:relative; z-index:1}
+
+/* Readability: raise contrast on dark sections */
+p{opacity:.82 !important}
+.ke-small{opacity:.82 !important}
+
+/* ===== v7 fixes ===== */
+/* Show background video: make page background transparent */
+html, body { background: transparent !important; }
+
+/* Darken legacy white components to match theme */
+.card, .quotePanel, .quoteTabs, .panel, .tile, .box, .contactCard, .contactRow, .ctaRow, .product, .productCard, .formCard {
+  background: rgba(255,255,255,.05) !important;
+  border-color: rgba(255,255,255,.10) !important;
+  color: #ffffff !important;
+}
+.card *, .quotePanel *, .quoteTabs *, .contactRow *, .ctaRow *, .productCard *, .formCard * {
+  color: inherit !important;
+}
+.card p, .quotePanel p, .contactRow .contactVal, .productCard p, .ctaRow p {
+  color: rgba(255,255,255,.84) !important;
+  opacity: 1 !important;
+}
+/* Buttons on dark */
+.btn, a.btn {
+  background: rgba(255,255,255,.06) !important;
+  border-color: rgba(255,255,255,.14) !important;
+  color: #fff !important;
+}
+.btn:hover { color: var(--accent) !important; }
+
+/* Ensure headings readable */
+h1,h2,h3,h4,h5,h6 { color:#fff !important; }
+
+/* ===== v8 readability ===== */
+body{ color:#fff !important; }
+p, li, .contactVal, .formHint{ color: rgba(255,255,255,.86) !important; opacity:1 !important; }
+a{ color:#fff; }
+a:hover{ color: var(--accent) !important; }
+
+/* stronger overlay to keep text readable on video background */
+.ke-site-bg video{ filter:saturate(1.05) contrast(1.08) brightness(.45) !important; }
+.ke-site-bg__overlay{
+  background:
+    radial-gradient(closest-side, rgba(74,222,128,.16), transparent 62%),
+    linear-gradient(to bottom, rgba(3,3,3,.55), rgba(3,3,3,.94)) !important;
+}
+
+
+/* card text enforce */
+.card, .card *{ color:#fff !important; }
+.card p{ color: rgba(255,255,255,.86) !important; }
+
+/* ===== v9 panels (non rompe il layout) ===== */
+.ke-panel{
+  background: rgba(0,0,0,.42) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,.10);
+  border-radius: 20px;
+}
+/* spacing inside panels */
+.ke-panel-inner{ padding: 46px 4%; }
+@media (max-width:980px){
+  .ke-panel-inner{ padding: 34px 4%; }
+}
+
+/* ===== v10 products visibility ===== */
+.ke-panel{ position: relative; z-index: 2; }
+#prodotti-home{ position: relative; z-index: 3; }
+#prodotti-home .ke-hscroll{ min-height: 340px; background: rgba(0,0,0,.22); }
+#prodotti-home .ke-slide{ background: rgba(255,255,255,.06) !important; }
+#prodotti-home .ke-slide img{ background: #0b0b0f; }
+
+/* ===== v13 header position + mobile ===== */
+:root{ --keNavH: 88px; }
+.ke-nav{
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 !important;
+  transform: translateZ(0);
+}
+/* body.ke-toppad removed */
+@media (max-width: 980px){
+  :root{ --keNavH: 78px; }
+  .ke-nav{ padding: 12px 5% !important; }
+  .ke-logo img{ height: 38px !important; }
+  .ke-logo{ font-size: 1.05rem !important; }
+}
+
+html, body{ max-width: 100%; overflow-x: hidden; }
+img, video{ max-width: 100%; height: auto; }
+
+/* v14 header definitive fix */
+.ke-nav{position:fixed !important; top:0 !important; left:0 !important; right:0 !important; margin:0 !important; z-index:1000;}
+main{padding-top:88px;}
+@media (max-width:980px){main{padding-top:78px;}}
+
+/* ===== v15 ambiti cards fix ===== */
+#ambiti .ke-card{
+  background: rgba(255,255,255,.96) !important;
+  color: #0b0b0f !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+}
+#ambiti .ke-card h3{ color:#0b0b0f !important; }
+#ambiti .ke-card p{ color: rgba(11,11,15,.86) !important; opacity: 1 !important; font-weight: 400 !important; }
+#ambiti .ke-card .ke-card-img{
+  width: calc(100% + 56px) !important;
+  margin: -28px -28px 16px -28px !important;
+  height: 210px !important;
+  border-radius: 14px 14px 0 0 !important;
+  object-fit: cover !important;
+  display:block !important;
+}
+
+/* ===== v15 contatti button ===== */
+.ke-links a[href$="contatti-istituzionali.html"]{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  padding: 10px 14px !important;
+  opacity: 1 !important;
+}
+.ke-links a[href$="contatti-istituzionali.html"]:hover{
+  color: var(--accent) !important;
+  border-color: rgba(74,222,128,.45);
+}
+
+/* ===== v16 bigger logo ===== */
+.ke-logo img{ height: 52px !important; }
+.ke-logo{ font-size: 1.18rem !important; }
+@media (max-width:980px){
+  .ke-logo img{ height: 46px !important; }
+  .ke-logo{ font-size: 1.10rem !important; }
+}
+
+/* ===== v16 brighter video background ===== */
+.ke-site-bg video{
+  filter: saturate(1.05) contrast(1.06) brightness(.72) !important;
+}
+.ke-site-bg__overlay{
+  background:
+    radial-gradient(closest-side, rgba(74,222,128,.10), transparent 62%),
+    linear-gradient(to bottom, rgba(3,3,3,.34), rgba(3,3,3,.82)) !important;
+}
+
+/* ===== v16 ambiti page text black + images aligned ===== */
+body.page-ambiti .card,
+body.page-ambiti .serviceCard,
+body.page-ambiti .featureCard,
+body.page-ambiti .tile,
+body.page-ambiti .box{
+  background: rgba(255,255,255,.96) !important;
+  color: #0b0b0f !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+body.page-ambiti .card *,
+body.page-ambiti .serviceCard *,
+body.page-ambiti .featureCard *,
+body.page-ambiti .tile *,
+body.page-ambiti .box *{
+  color: inherit !important;
+}
+body.page-ambiti .card p,
+body.page-ambiti .serviceCard p,
+body.page-ambiti .featureCard p{
+  color: rgba(11,11,15,.88) !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+/* images: full-bleed and flush with the card border */
+body.page-ambiti .mediaImg,
+body.page-ambiti .card img,
+body.page-ambiti .serviceCard img,
+body.page-ambiti .featureCard img{
+  border-radius: 16px 16px 0 0 !important;
+  display:block !important;
+}
+/* If the page uses the shared .mediaImg class (often has white background), remove padding/borders */
+body.page-ambiti .mediaImg{
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+}
+
+/* ===== v17 even brighter video ===== */
+.ke-site-bg video{
+  filter: saturate(1.05) contrast(1.05) brightness(.82) !important;
+}
+.ke-site-bg__overlay{
+  background:
+    radial-gradient(closest-side, rgba(74,222,128,.08), transparent 65%),
+    linear-gradient(to bottom, rgba(3,3,3,.22), rgba(3,3,3,.72)) !important;
+}
+
+/* ===== v17 header offset for inner pages ===== */
+.page-ambiti main h1,
+.page-ambiti main h2,
+.page-ambiti main .pageHero,
+.page-prodotti main h1,
+.page-prodotti main h2,
+.page-bandi main h1,
+.page-bandi main h2,
+.page-chi-siamo main h1,
+.page-chi-siamo main h2,
+.page-preventivo main h1,
+.page-preventivo main h2{
+  scroll-margin-top: 100px;
+}
+
+/* generic fallback */
+main h1, main h2{
+  scroll-margin-top: 96px;
+}
+
+/* ===== v18 header overlap fix (pages without main) ===== */
+:root{ --keNavH: 96px; } /* fallback */
+.ke-nav{ top:0 !important; }
+
+/* If a page has <main>, keep spacing there */
+main{ padding-top: calc(var(--keNavH) + env(safe-area-inset-top, 0px)) !important; }
+
+/* If a page DOES NOT have <main> (many legacy pages), push first content below header */
+.ke-nav + .pageHero{
+  padding-top: calc(var(--keNavH) + 26px) !important;
+}
+.ke-nav + section:not(.pageHero){
+  margin-top: calc(var(--keNavH) + 16px) !important;
+}
+/* also handle a generic first block */
+.ke-nav + div:not(.ke-site-bg):not(.ke-nav){
+  margin-top: calc(var(--keNavH) + 16px) !important;
+}
+
+/* ===== v18 ambiti cards text visible ===== */
+body.page-ambiti .card,
+body.page-ambiti .card *,
+body.page-ambiti .serviceCard,
+body.page-ambiti .serviceCard *,
+body.page-ambiti .featureCard,
+body.page-ambiti .featureCard *{
+  color: #0b0b0f !important;
+}
+body.page-ambiti .card p,
+body.page-ambiti .serviceCard p,
+body.page-ambiti .featureCard p{
+  color: rgba(11,11,15,.88) !important;
+  opacity:1 !important;
+}
+
+
+/* ===== v19 ambiti listCard hard-fix (text + images) ===== */
+body.page-ambiti .listCard{
+  background:#ffffff !important;
+}
+body.page-ambiti .listCard,
+body.page-ambiti .listCard *{
+  color:#0b0b0f !important;
+}
+body.page-ambiti .listCard p{
+  color: rgba(11,11,15,.88) !important;
+  opacity:1 !important;
+}
+body.page-ambiti img.listCard__img{
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover !important;
+  display:block !important;
+  margin: -16px -16px 12px !important;
+  border-radius: 0 !important;
+}
+
+
+/* ===== v20 listCard overflow clamp ===== */
+body.page-ambiti .listCard{ overflow:hidden !important; }
+
+
+/* Preventivo tabs contrast fix */
+.quoteTabs{ background: rgba(0,0,0,.25) !important; }
+.quoteTab{ background: rgba(0,0,0,.18) !important; color:#fff !important; border: 1px solid rgba(255,255,255,.18) !important; }
+.quoteTab:hover{ background: rgba(0,0,0,.26) !important; }
+.quoteTab.is-active{ background:#0b1220 !important; color:#fff !important; border-color: rgba(255,255,255,.28) !important; }

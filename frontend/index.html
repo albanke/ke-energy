@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="ke-api-base" content="https://ke-energy.onrender.com" />
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="description" content="KE Group Energy: impianti fotovoltaici e soluzioni Solar Energy. Sopralluogo gratuito, soluzioni su misura e assistenza completa."/>
+<meta content="KE Group Energy | Fotovoltaico e Solar Energy" property="og:title"/>
+<meta content="Impianti fotovoltaici per privati e aziende. Sopralluogo gratuito, assistenza completa." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://kegroupenergy.it/" property="og:url"/>
+<meta content="https://kegroupenergy.it/assets/img/hero-solar.png" property="og:image"/>
+<meta content="jToBfODRFUK_Cx88idPNRr1hxu9hGxFulvl-9owpmEk" name="google-site-verification"/>
+<link href="https://kegroupenergy.it/" rel="canonical"/>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<title>KE Group Energy | Fotovoltaico e Solar Energy</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://kegroupenergy.it/#business",
+  "name": "KE Group Energy",
+  "legalName": "KE GROUP ENERGY SRLS",
+  "description": "Impianti fotovoltaici e sistemi di accumulo per privati e aziende in Lombardia. Progettazione, pratiche, installazione e assistenza.",
+  "url": "https://kegroupenergy.it/",
+  "logo": "https://kegroupenergy.it/assets/img/logo-energy.png",
+  "image": "https://kegroupenergy.it/assets/img/hero-solar.png",
+  "telephone": "+390363176007",
+  "email": "info@kegroupenergy.com",
+  "vatID": "IT04822370161",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Zara 2",
+    "addressLocality": "Romano di Lombardia",
+    "addressRegion": "BG",
+    "postalCode": "24058",
+    "addressCountry": "IT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.5183,
+    "longitude": 9.7497
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Lombardia"
+  },
+  "priceRange": "€€",
+  "sameAs": [],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Soluzioni fotovoltaiche",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Impianti fotovoltaici residenziali",
+          "description": "Progettazione e installazione di impianti fotovoltaici per abitazioni private con storage e ottimizzazione dell'autoconsumo."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Impianti fotovoltaici industriali e agricoli",
+          "description": "Impianti su misura per capannoni, aziende e settore agricolo in Lombardia."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Sistemi di accumulo energia",
+          "description": "Installazione batterie e sistemi di accumulo per massimizzare l'autoconsumo."
+        }
+      }
+    ]
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&amp;family=Outfit:wght@100;300;600;900&amp;display=swap" rel="stylesheet"/>
+<!-- base site css (per componenti tipo productSwipe) -->
+<link href="style.css" rel="stylesheet"/>
+<!-- theme overrides + home layout (sempre dopo, così niente bianco) -->
+<link href="ke-theme.css" rel="stylesheet"/>
+<link href="ke-home.css" rel="stylesheet"/>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script defer="" src="ke-home.js"></script>
+<script defer="" src="script.js"></script>
+
+<style id="ke-fix-home-ambiti-images">
+/* FIX HOME: immagini Ambiti a filo nel riquadro */
+#ambiti .ke-card{
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+#ambiti .ke-card > img.ke-card-img{
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  display: block !important;
+  margin: 0 !important;
+}
+/* padding solo al contenuto testuale */
+#ambiti .ke-card > :not(img.ke-card-img){
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+#ambiti .ke-card > :last-child{
+  padding-bottom: 28px !important;
+}
+</style>
+
+<link href="ke-animations.css" rel="stylesheet"/>
+<link href="ke-mobile.css" rel="stylesheet"/>
+</head>
+<body class="ke-home"><div aria-hidden="true" class="ke-site-bg">
+<video id="bgVideo" loop muted playsinline preload="none" src="assets/video/home-loop.mp4"></video>
+<div class="ke-site-bg__overlay"></div>
+</div><div class="ke-home-bg"></div>
+<div class="ke-nav">
+<a class="ke-logo" href="index.html">
+<img alt="KE Group Energy" src="assets/img/logo-energy.png"/>
+<span>KE Group Energy</span>
+</a>
+<div class="ke-links">
+<a href="chi-siamo.html">Azienda</a>
+<a href="ambiti-intervento.html">Ambiti</a>
+<a href="prodotti.html">Prodotti</a>
+<a href="bandi-appalti.html">Incentivi</a>
+<a href="contatti-istituzionali.html">Contatti</a><a class="ke-cta" href="preventivo.html">Preventivo</a>
+</div>
+</div>
+<main>
+<section class="ke-wrap ke-hero" id="home">
+<div class="ke-copy" style="max-width:860px">
+<div class="ke-kicker ke-reveal">Advanced Solar Systems • Lombardia</div>
+<h1 class="ke-reveal">KE GROUP<br/><span class="ke-outline">ENERGY</span></h1>
+<p class="ke-reveal">
+          Impianti fotovoltaici e sistemi di accumulo per privati e aziende.
+          Progettazione, pratiche, installazione e assistenza: un unico partner per la tua indipendenza energetica.
+        </p>
+<div class="ke-actions ke-reveal">
+<a class="ke-btn ke-btn--accent" href="preventivo.html">Richiedi preventivo →</a>
+<a class="ke-btn" href="prodotti.html">Vedi prodotti</a>
+<a class="ke-btn" href="contatti-istituzionali.html">Contatti</a>
+</div>
+<div class="ke-badge ke-reveal" style="margin-top:18px; display:inline-flex; gap:10px; align-items:center; padding:10px 14px; border-radius:999px; background:rgba(74,222,128,.16); border:1px solid rgba(74,222,128,.35); font-weight:900; letter-spacing:2px; text-transform:uppercase; font-size:.72rem;">
+<span style="color:var(--accent)">Power</span> 2026 • Prossimo livello
+</div>
+</div>
+</section>
+<section class="ke-wrap ke-section ke-panel" id="azienda"><div class="ke-panel-inner">
+<h2 class="ke-reveal">L'ECCELLENZA<br/><span class="ke-outline">ITALIANA</span></h2>
+<div class="ke-grid">
+<div class="ke-card ke-col-6 ke-reveal">
+<h3>Chi siamo</h3>
+<p>Scopri la nostra storia, la visione e come portiamo qualità e performance nei progetti.</p>
+<div style="margin-top:14px"><a class="ke-btn ke-btn--accent" href="chi-siamo.html">Vai alla pagina →</a></div>
+</div>
+<div class="ke-card ke-col-6 ke-reveal">
+<h3>Governance &amp; Compliance</h3>
+<p>Trasparenza, procedure e conformità: tutti i dettagli nelle sezioni dedicate.</p>
+<div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+<a class="ke-btn" href="governance-compliance.html">Governance</a>
+        <!-- Certificazioni: rimosso (non presenti) -->
+<a class="ke-btn" href="partner.html">Partner</a>
+</div>
+</div>
+</div>
+</div></section>
+
+<section class="ke-wrap ke-section ke-panel" id="ambiti"><div class="ke-panel-inner">
+<h2 class="ke-reveal"><span class="ke-outline">AMBITI DI</span><br/>INTERVENTO</h2>
+
+<div class="ke-hscroll ke-reveal" aria-label="Ambiti di intervento">
+  <div class="ke-hscroll__track">
+    <div class="ke-slide">
+      <div class="ke-card--light ke-card">
+        <img alt="Residenziale" class="ke-card-img" src="assets/img/servizio-residenziale.png"/>
+        <h3>Residenziale</h3>
+        <p>Soluzioni per abitazioni private con storage e ottimizzazione dell'autoconsumo.</p>
+      </div>
+    </div>
+
+    <div class="ke-slide">
+      <div class="ke-card--light ke-card">
+        <img alt="Industriale / Agricolo" class="ke-card-img" src="assets/img/servizio-aziendale.png"/>
+        <h3>Industriale / Agricolo</h3>
+        <p>Impianti su misura per capannoni, aziende e settore agricolo.</p>
+      </div>
+    </div>
+
+    <div class="ke-slide">
+      <div class="ke-card--light ke-card">
+        <img alt="Assistenza" class="ke-card-img" src="assets/img/servizio-assistenza.png"/>
+        <h3>Assistenza</h3>
+        <p>Monitoraggio, manutenzione e supporto continuativo per massima resa.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ke-card ke-reveal" style="margin-top:18px">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+    <div>
+      <h3>Dettagli completi</h3>
+      <p>Approfondisci servizi e modalità operative nella pagina dedicata.</p>
+    </div>
+    <a class="ke-btn ke-btn--accent" href="ambiti-intervento.html">Apri Ambiti →</a>
+  </div>
+</div>
+
+</div></section>
+<section class="ke-wrap ke-section ke-panel" id="prodotti-home"><div class="ke-panel-inner"><h2 class="ke-reveal">PRODOTTI<br/><span class="ke-outline">SELEZIONATI</span></h2><p class="ke-reveal" style="max-width:760px">Alcuni prodotti presenti nel catalogo. Apri la pagina prodotti per schede complete e specifiche.</p>
+<div class="ke-hscroll ke-reveal">
+<div class="ke-hscroll__track" style="transform:none">
+<div class="ke-slide">
+<img alt="Trina Solar Vertex N – TSM‑NEG21C.20 (695–720 W)" src="assets/images/prodotti/trina-vertex-n-695-720w.png"/>
+<div class="b">
+<h3>Trina Solar Vertex N – TSM‑NEG21C.20 (695–720 W)</h3>
+<p>Modulo N-type i‑TOPCon bifacciale (dual glass) ad alta potenza.</p>
+</div>
+</div>
+<div class="ke-slide">
+<img alt="Peimar OR10H505M (BF) – Half Cell Line (505 W)" src="assets/images/prodotti/peimar-or10h505m-bf.png"/>
+<div class="b">
+<h3>Peimar OR10H505M (BF) – Half Cell Line (505 W)</h3>
+<p>Modulo half‑cell a 132 celle monocristalline PERC , adatto a installazioni residenziali, commerciali e industriali.</p>
+</div>
+</div>
+<div class="ke-slide">
+<img alt="INGECON® SUN 110TL M9 (Ingeteam)" src="assets/images/prodotti/ingeteam-ingecon-sun-110tl-m9.png"/>
+<div class="b">
+<h3>INGECON® SUN 110TL M9 (Ingeteam)</h3>
+<p>Inverter FV trifase per impianti industriali con 9 MPPT indipendenti.</p>
+</div>
+</div>
+<div class="ke-slide">
+<img alt="INGECON® SUN 30TL M3 / 50TL M4 (Ingeteam)" src="assets/images/prodotti/ingeteam-ingecon-sun-30tl-m3-50tl-m4.png"/>
+<div class="b">
+<h3>INGECON® SUN 30TL M3 / 50TL M4 (Ingeteam)</h3>
+<p>Inverter FV trifase per impianti commerciali/industriali in autoconsumo (multi‑MPPT).</p>
+</div>
+</div>
+<div class="ke-slide">
+<img alt="INGECON® SUN STORAGE 3Play TL M (Ingeteam) – Ibrido trifase" src="assets/images/prodotti/ingeteam-sun-storage-3play-tl-m-e-battery-issb.png"/>
+<div class="b">
+<h3>INGECON® SUN STORAGE 3Play TL M (Ingeteam) – Ibrido trifase</h3>
+<p>Inverter ibrido trifase per impianti solari con accumulo (residenziale o commerciale).</p>
+</div>
+</div>
+<div class="ke-slide">
+<img alt="Huawei LUNA2000 – Smart String ESS (97–200 kWh)" src="assets/images/prodotti/huawei-luna2000-smart-string-ess.png"/>
+<div class="b">
+<h3>Huawei LUNA2000 – Smart String ESS (97–200 kWh)</h3>
+<p>Sistema di accumulo modulare per applicazioni C&amp;I/industrial, con Smart PCS.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="ke-reveal" style="margin-top:18px">
+<a class="ke-btn ke-btn--accent" href="prodotti.html">Pagina prodotti completa →</a>
+</div>
+</div>
+<div class="ke-products-fallback">
+<div class="ke-fb-item">
+<img alt="Trina Solar Vertex N modulo fotovoltaico bifacciale 695-720W" src="assets/images/prodotti/trina-vertex-n-695-720w.png"/>
+<div>
+<div class="ke-fb-title">Trina Solar Vertex N – TSM‑NEG21C.20 (695–720 W)</div>
+<div class="ke-fb-desc">Modulo N-type i‑TOPCon bifacciale (dual glass) ad alta potenza.</div>
+</div>
+</div>
+<div class="ke-fb-item">
+<img alt="Peimar OR10H505M modulo fotovoltaico half-cell 505W" src="assets/images/prodotti/peimar-or10h505m-bf.png"/>
+<div>
+<div class="ke-fb-title">Peimar OR10H505M (BF) – Half Cell Line (505 W)</div>
+<div class="ke-fb-desc">Modulo half‑cell a 132 celle monocristalline PERC , adatto a installazioni residenziali, commerciali e industriali.</div>
+</div>
+</div>
+<div class="ke-fb-item">
+<img alt="Ingeteam INGECON SUN 110TL M9 inverter fotovoltaico industriale" src="assets/images/prodotti/ingeteam-ingecon-sun-110tl-m9.png"/>
+<div>
+<div class="ke-fb-title">INGECON® SUN 110TL M9 (Ingeteam)</div>
+<div class="ke-fb-desc">Inverter FV trifase per impianti industriali con 9 MPPT indipendenti.</div>
+</div>
+</div>
+<div class="ke-fb-item">
+<img alt="Ingeteam INGECON SUN 30TL M3 50TL M4 inverter fotovoltaico commerciale" src="assets/images/prodotti/ingeteam-ingecon-sun-30tl-m3-50tl-m4.png"/>
+<div>
+<div class="ke-fb-title">INGECON® SUN 30TL M3 / 50TL M4 (Ingeteam)</div>
+<div class="ke-fb-desc">Inverter FV trifase per impianti commerciali/industriali in autoconsumo (multi‑MPPT).</div>
+</div>
+</div>
+<div class="ke-fb-item">
+<img alt="Ingeteam SUN STORAGE 3Play TL M inverter ibrido con accumulo" src="assets/images/prodotti/ingeteam-sun-storage-3play-tl-m-e-battery-issb.png"/>
+<div>
+<div class="ke-fb-title">INGECON® SUN STORAGE 3Play TL M (Ingeteam) – Ibrido trifase</div>
+<div class="ke-fb-desc">Inverter ibrido trifase per impianti solari con accumulo (residenziale o commerciale).</div>
+</div>
+</div>
+<div class="ke-fb-item">
+<img alt="Huawei LUNA2000 Smart String ESS sistema accumulo energia 97-200kWh" src="assets/images/prodotti/huawei-luna2000-smart-string-ess.png"/>
+<div>
+<div class="ke-fb-title">Huawei LUNA2000 – Smart String ESS (97–200 kWh)</div>
+<div class="ke-fb-desc">Sistema di accumulo modulare per applicazioni C&amp;I/industrial, con Smart PCS.</div>
+</div>
+</div>
+</div>
+</section>
+<section class="ke-wrap ke-section ke-panel" id="incentivi"><div class="ke-panel-inner">
+<h2 class="ke-reveal">BANDI &amp;<br/><span class="ke-outline">INCENTIVI</span></h2>
+<div class="ke-grid">
+<div class="ke-col-4 ke-card--media ke-card--light ke-reveal ke-card"><img alt="Bando PNRR Agrisolare incentivi fotovoltaico aziende agricole" class="ke-card-img" src="assets/img/PNRR.jpg"/>
+<h3>PNRR / Agrisolare</h3>
+<p>Contributi dedicati per aziende e settore agricolo. Supporto pratiche e documentazione.</p>
+</div>
+<div class="ke-col-4 ke-card--media ke-card--light ke-reveal ke-card"><img alt="Conto Termico agevolazioni efficienza energetica rinnovabili" class="ke-card-img" src="assets/img/Conto-Termico.jpg"/>
+<h3>Conto Termico</h3>
+<p>Agevolazioni per efficienza energetica e soluzioni rinnovabili.</p>
+</div>
+<div class="ke-col-4 ke-card--media ke-card--light ke-reveal ke-card"><img alt="Incentivi Nuova Impresa opportunità investimento fotovoltaico" class="ke-card-img" src="assets/img/Nuova-Impresa.jpg"/>
+<h3>Nuova Impresa</h3>
+<p>Opportunità per imprese e investimenti: verifica requisiti e tempistiche.</p>
+</div>
+<div class="ke-card ke-col-12 ke-reveal">
+<div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+<div>
+<h3>Tutti i dettagli</h3>
+<p>Consulta la pagina dedicata a bandi, incentivi e aggiornamenti.</p>
+</div>
+<a class="ke-btn ke-btn--accent" href="bandi-appalti.html">Apri Bandi →</a>
+</div>
+</div>
+</div>
+</div></section>
+<section class="ke-wrap ke-section ke-panel" id="cta" style="min-height:70vh"><div class="ke-panel-inner">
+<h2 class="ke-reveal">PREVENTIVO<br/><span class="ke-outline">DIRETTO</span></h2>
+<div class="ke-grid">
+<div class="ke-card ke-col-12 ke-reveal">
+<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap">
+<div style="max-width:760px">
+<h3>Raccontaci il progetto</h3>
+<p>Compila il form: ti ricontattiamo con una proposta su misura e una prima analisi.</p>
+<div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+<a class="ke-btn ke-btn--accent" href="preventivo.html">Apri il form →</a>
+<a class="ke-btn" href="privacy-cookie.html">Privacy &amp; Cookie</a>
+</div>
+</div>
+<div style="opacity:.85">
+<div style="font-family:'Unbounded',system-ui,sans-serif">Romano di Lombardia (BG)</div>
+<div class="ke-small" style="margin-top:6px">Dettagli contatto nella pagina istituzionale</div>
+</div>
+</div>
+</div>
+</div>
+</div></section>
+<section class="ke-newsletter">
+  <div class="ke-newsletter__inner">
+    <span class="ke-newsletter__tag">Newsletter</span>
+    <h2>KE Energy Newsletter</h2>
+    <p>Resta aggiornato su incentivi, bandi GSE e opportunità per il fotovoltaico.</p>
+    <form class="ke-newsletter__form" id="ke-nl-form">
+      <input class="ke-newsletter__input" type="email" id="ke-nl-email" placeholder="La tua email" required autocomplete="email"/>
+      <button class="ke-newsletter__btn" type="submit">Iscriviti ora</button>
+    </form>
+    <div class="ke-newsletter__msg" id="ke-nl-msg"></div>
+  </div>
+</section>
+<script>
+(function(){
+  var form=document.getElementById("ke-nl-form");
+  var msg=document.getElementById("ke-nl-msg");
+  if(!form) return;
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var email=document.getElementById("ke-nl-email").value;
+    var btn=form.querySelector("button");
+    btn.disabled=true; btn.textContent="...";
+    fetch("https://1d888e3c.sibforms.com/serve/MUIFAN9aqzqQs5kmPLGmktgN4YcC4EwzDtz-lEkFD0_tgdSiGS7WIEa1goImZzrAOA2qlB8It84HN8dXIVS7qc2Q0bJhGNwmnrrkJXABA7xVgqwr4Yugo4vrr3pDHPhQJ-lisD2cf8Fk4OiAIB4To7jaMrwncUtiJitei39x_DorjJAAW5JsRkogAWhdvkKJrix1v8HNlsDnLdxbXg==",{
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:"EMAIL="+encodeURIComponent(email)+"&email_address_check=&locale=it"
+    }).then(function(){
+      msg.className="ke-newsletter__msg success";
+      msg.textContent="✓ Iscrizione avvenuta correttamente!";
+      form.reset();
+    }).catch(function(){
+      msg.className="ke-newsletter__msg success";
+      msg.textContent="✓ Iscrizione avvenuta correttamente!";
+      form.reset();
+    }).finally(function(){
+      btn.disabled=false;
+      btn.textContent="Iscriviti ora";
+    });
+  });
+})();
+</script>
+<footer class="ke-footer">
+<div class="row">
+<div>
+<div class="ke-logo" style="gap:10px">
+<img alt="KE" src="assets/img/logo-ke.png"/>
+<span>KE Group Energy</span>
+</div>
+<div class="ke-small" style="margin-top:10px">© <span id="year">2026</span> KE GROUP ENERGY SRLS • P.IVA 04822370161</div>
+<div class="ke-small" style="margin-top:8px; max-width:720px">
+<strong>Sede:</strong> Via Marco Biagi 16/18 — Fara Olivana con Sola (BG) — Italia<br/>
+<strong>Sede legale:</strong> Via Zara 2 — 24058 Romano di Lombardia (BG) — Italia
+      </div>
+</div>
+<div style="display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start; justify-content:flex-end">
+<div class="ke-small">
+<strong>Telefono</strong><br/>
+        +39 0363 1760076
+      </div>
+<div class="ke-small">
+<strong>Email</strong><br/>
+        info@kegroupenergy.com
+      </div>
+<div class="ke-small">
+<strong>WhatsApp</strong><br/>
+<a href="contatti-istituzionali.html">Apri chat</a>
+</div>
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin-left:10px">
+<a href="chi-siamo.html">Azienda</a>
+<a href="ambiti-intervento.html">Ambiti</a>
+<a href="prodotti.html">Prodotti</a>
+<a href="bandi-appalti.html">Incentivi</a>
+<a href="privacy-cookie.html">Privacy</a>
+</div>
+</div>
+</div>
+</footer>
+<script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script></main>
+<script>
+(function(){
+  function setNavH(){
+    var nav = document.querySelector('.ke-nav');
+    if(!nav) return;
+    var h = nav.offsetHeight || 88;
+    document.documentElement.style.setProperty('--keNavH', h + 'px');
+  }
+  window.addEventListener('load', setNavH);
+  window.addEventListener('resize', setNavH);
+  setNavH();
+})();
+</script><script defer src="ke-animations.js"></script>
+
+<!-- Video lazy load: inizia solo dopo che la pagina è interattiva -->
+<script>
+(function(){
+  function startVideo(){
+    var v = document.getElementById('bgVideo');
+    if(v){ v.play().catch(function(){}); }
+  }
+  if('requestIdleCallback' in window){
+    requestIdleCallback(startVideo, {timeout:2000});
+  } else {
+    window.addEventListener('load', function(){ setTimeout(startVideo, 400); });
+  }
+})();
+</script>
+<script defer src="ke-mobile.js"></script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accesso Riservato | KE Group Energy</title>
+<meta name="description" content="Accesso riservato al pannello di amministrazione KE Group Energy."/>
+<meta name="robots" content="noindex, nofollow"/>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="ke-api-base" content="https://ke-energy.onrender.com" />
+
+  <link href="style.css" rel="stylesheet" />
+  <link href="ke-theme.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Outfit:wght@100;300;600;900&display=swap" rel="stylesheet" />
+
+  <style>
+    .login-wrap {
+      min-height: calc(100vh - var(--keNavH, 88px));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: calc(var(--keNavH, 88px) + 40px) 5% 60px;
+    }
+
+    /* ── Login Card ── */
+    .login-card { max-width: 440px; margin: 0 auto; width: 100%; }
+    .login-card__header { text-align: center; margin-bottom: 32px; }
+    .login-card__tag {
+      display: inline-block; font-size:.7rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+      background:rgba(74,222,128,.10); border:1px solid rgba(74,222,128,.25);
+      border-radius:999px; padding:5px 14px; margin-bottom:16px;
+    }
+    .login-card__title { font-size:clamp(1.4rem,4vw,2rem); margin:0 0 8px; letter-spacing:-.03em; }
+    .login-card__sub { font-size:.9rem; opacity:.65; margin:0; }
+
+    .login-panel {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);
+      border-radius:22px; padding:32px 28px; backdrop-filter:blur(14px);
+    }
+    .form-field { margin-bottom:20px; }
+    .form-field label {
+      display:block; font-size:.8rem; font-weight:700; letter-spacing:.08em;
+      text-transform:uppercase; opacity:.7; margin-bottom:8px;
+    }
+    .form-field input {
+      width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+      border-radius:12px; padding:13px 16px; color:#fff; font-size:.95rem;
+      font-family:inherit; outline:none; transition:border-color .2s; box-sizing:border-box;
+    }
+    .form-field input:focus { border-color:rgba(74,222,128,.5); }
+    .form-field input::placeholder { color:rgba(255,255,255,.3); }
+
+    .btn-login {
+      width:100%; padding:14px;
+      background:linear-gradient(135deg,#22c55e,#1fa84a);
+      border:none; border-radius:999px; color:#fff;
+      font-family:'Unbounded',sans-serif; font-size:.8rem; font-weight:900;
+      letter-spacing:.06em; text-transform:uppercase;
+      cursor:pointer; transition:opacity .2s, transform .15s; margin-top:8px;
+    }
+    .btn-login:hover { opacity:.88; transform:translateY(-1px); }
+    .btn-login:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+
+    .ke-advanced {
+      margin-top:20px; border-top:1px solid rgba(255,255,255,.07); padding-top:16px;
+    }
+    .ke-advanced summary {
+      font-size:.75rem; opacity:.5; cursor:pointer; user-select:none; letter-spacing:.06em;
+    }
+    .ke-advanced summary:hover { opacity:.8; }
+    .ke-advanced .adv-field { margin-top:14px; }
+    .ke-advanced .adv-field label {
+      display:block; font-size:.75rem; font-weight:700; opacity:.6;
+      margin-bottom:6px; letter-spacing:.06em; text-transform:uppercase;
+    }
+    .ke-advanced .adv-field input {
+      width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09);
+      border-radius:10px; padding:10px 14px; color:#fff; font-size:.82rem;
+      font-family:inherit; outline:none; box-sizing:border-box;
+    }
+    .adv-hint { font-size:.75rem; opacity:.45; margin-top:6px; line-height:1.5; }
+
+    .notice {
+      margin-top:14px; padding:11px 14px; border-radius:12px; font-size:.85rem;
+      border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.05);
+    }
+    .notice.ok { border-color:rgba(34,197,94,.35); background:rgba(34,197,94,.08); }
+    .notice.err { border-color:rgba(239,68,68,.35); background:rgba(239,68,68,.06); }
+    .hide { display:none !important; }
+
+    /* ── Admin Panel ── */
+    .admin-wrap { max-width:1140px; margin:0 auto; width:100%; }
+    .admin-topbar {
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:14px; margin-bottom:28px;
+    }
+    .admin-topbar__title { font-size:clamp(1.2rem,3vw,1.6rem); margin:0 0 4px; }
+    .admin-topbar__sub { font-size:.85rem; opacity:.6; margin:0; }
+    .admin-topbar__actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .session-chip {
+      padding:7px 14px; border-radius:999px;
+      border:1px solid rgba(74,222,128,.3); background:rgba(74,222,128,.1);
+      font-size:.78rem; font-weight:700; letter-spacing:.06em; color:var(--accent);
+    }
+
+    .admin-grid { display:grid; grid-template-columns:1fr; gap:18px; }
+    @media (min-width:900px) {
+      .admin-grid { grid-template-columns:1fr 1fr; }
+      .admin-grid .full-row { grid-column:1 / -1; }
+    }
+
+    .panel {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+      border-radius:18px; padding:24px; backdrop-filter:blur(10px);
+    }
+    .panel__title { font-size:1rem; margin:0 0 6px; letter-spacing:-.01em; }
+    .panel__sub { font-size:.82rem; opacity:.6; margin:0 0 16px; }
+
+    .panel label {
+      display:block; font-size:.78rem; font-weight:700; letter-spacing:.07em;
+      text-transform:uppercase; opacity:.65; margin:14px 0 6px;
+    }
+    .panel label:first-of-type { margin-top:0; }
+    .panel input, .panel textarea, .panel select {
+      width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);
+      border-radius:10px; padding:11px 13px; color:#fff; font-size:.88rem;
+      font-family:inherit; outline:none; box-sizing:border-box; transition:border-color .2s;
+    }
+    .panel input:focus, .panel textarea:focus, .panel select:focus { border-color:rgba(74,222,128,.45); }
+    .panel input::placeholder, .panel textarea::placeholder { color:rgba(255,255,255,.25); }
+    .panel textarea { min-height:90px; resize:vertical; }
+    .panel select option { background:#111317; color:#fff; }
+
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width:560px) { .row2 { grid-template-columns:1fr; } }
+
+    .panel-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:18px; }
+
+    .btnx {
+      border-radius:999px; padding:10px 18px; font-size:.78rem; font-weight:900;
+      letter-spacing:.06em; text-transform:uppercase; font-family:'Unbounded',sans-serif;
+      cursor:pointer; border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07); color:#fff; transition:background .2s, opacity .2s;
+    }
+    .btnx:hover { background:rgba(255,255,255,.12); }
+    .btnx.primary { background:linear-gradient(135deg,#22c55e,#1fa84a); border-color:transparent; }
+    .btnx.primary:hover { opacity:.88; }
+    .btnx.danger { background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.25); color:#f87171; }
+    .btnx:disabled { opacity:.4; cursor:not-allowed; }
+
+    .table-wrap {
+      overflow:auto; max-height:480px;
+      border:1px solid rgba(255,255,255,.08); border-radius:14px;
+    }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:10px; border-top:1px solid rgba(255,255,255,.06); vertical-align:top; font-size:.82rem; }
+    th { font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; opacity:.55; font-weight:700; white-space:nowrap; }
+    tr:first-child th { border-top:none; }
+    tr:hover td { background:rgba(255,255,255,.025); }
+
+    .panel-topbar {
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:10px; margin-bottom:16px;
+    }
+    .page-chip {
+      padding:6px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05);
+      font-size:.75rem; font-weight:700;
+    }
+    input[type="file"] { padding:8px 0 !important; border:none !important; background:transparent !important; font-size:.8rem; opacity:.7; }
+
+    dialog {
+      border:none; border-radius:20px; padding:0;
+      max-width:860px; width:min(860px,94vw);
+      background:rgba(10,10,14,.98); color:#fff;
+      outline:1px solid rgba(255,255,255,.10);
+    }
+    dialog::backdrop { background:rgba(0,0,0,.65); backdrop-filter:blur(4px); }
+    .dialog-inner { padding:24px; }
+  </style>
+  <link href="ke-animations.css" rel="stylesheet" />
+</head>
+<body class="page-login">
+
+  <div aria-hidden="true" class="ke-site-bg">
+    <video id="bgVideo" loop muted playsinline preload="none" src="assets/video/home-loop.mp4"></video>
+    <div class="ke-site-bg__overlay"></div>
+  </div>
+
+  <nav class="ke-nav">
+    <a class="ke-logo" href="index.html">
+      <img alt="KE Group Energy" src="assets/img/logo-energy.png" />
+      <span>KE Group Energy</span>
+    </a>
+    <div class="ke-links">
+      <a href="index.html">Home</a>
+      <a href="privacy-cookie.html">Privacy</a>
+      <a class="ke-cta" href="preventivo.html">Preventivo</a>
+    </div>
+  </nav>
+
+  <main class="login-wrap">
+
+    <!-- NON AUTENTICATO -->
+    <div class="login-card" id="loginCard">
+      <div class="login-card__header">
+        <span class="login-card__tag">Area riservata</span>
+        <h1 class="login-card__title">Accesso Admin</h1>
+        <p class="login-card__sub">Pannello di gestione KE Group Energy</p>
+      </div>
+      <div class="login-panel">
+        <form id="loginForm" autocomplete="on">
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input id="username" name="username" autocomplete="username" required placeholder="Il tuo username" />
+          </div>
+          <div class="form-field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" />
+          </div>
+          <button class="btn-login" type="submit" id="loginBtn">Accedi</button>
+          <details class="ke-advanced">
+            <summary>Impostazioni avanzate</summary>
+            <div class="adv-field">
+              <label for="keApiBase">URL server (API)</label>
+              <input id="keApiBase" type="url" placeholder="https://tuo-backend.onrender.com" inputmode="url" autocomplete="off" />
+              <p class="adv-hint">Necessario solo se il login mostra "token mancante" o non riesce a contattare il server.</p>
+            </div>
+          </details>
+          <div id="loginMsg" class="notice hide"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- AUTENTICATO -->
+    <div class="admin-wrap hide" id="adminWrap">
+      <div class="admin-topbar">
+        <div>
+          <h2 class="admin-topbar__title">Pannello di Controllo</h2>
+          <p class="admin-topbar__sub">Gestisci contatti, prodotti e incentivi</p>
+        </div>
+        <div class="admin-topbar__actions">
+          <span class="session-chip" id="sessionChip">Autenticato</span>
+          <button class="btnx" id="refreshAllBtn" type="button">Aggiorna contatti</button>
+          <button class="btnx danger" id="logoutBtn" type="button">Logout</button>
+        </div>
+      </div>
+      <div id="adminMsg" class="notice hide" style="margin-bottom:18px"></div>
+
+      <div class="admin-grid">
+
+        <!-- Contatti -->
+        <div class="panel full-row" id="contattiPanel">
+          <div class="panel-topbar">
+            <h2 class="panel__title">Contatti ricevuti</h2>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btnx" type="button" id="prevPageBtn">←</button>
+              <span class="page-chip" id="pageChip">Pagina 1</span>
+              <button class="btnx" type="button" id="nextPageBtn">→</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Data</th><th>Nome</th><th>Telefono</th><th>Email</th><th>Azienda</th><th>Note</th><th></th></tr></thead>
+              <tbody id="contattiBody"><tr><td colspan="8" style="opacity:.5">Caricamento...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Aggiungi Prodotto -->
+        <div class="panel" id="prodottiPanel">
+          <h2 class="panel__title">Aggiungi prodotto</h2>
+          <p class="panel__sub">Apparirà automaticamente nella sezione Prodotti.</p>
+          <form id="prodottoForm">
+            <label for="pTitolo">Titolo *</label>
+            <input id="pTitolo" name="titolo" required placeholder="Es: Inverter XYZ 50kW" />
+            <div class="row2">
+              <div>
+                <label for="pCategoria">Categoria</label>
+                <select id="pCategoria" name="categoria">
+                  <option value="">— Seleziona —</option>
+                  <option>Inverter</option><option>Moduli</option><option>Batterie</option>
+                  <option>Wallbox</option><option>Strutture</option>
+                  <option>Ottimizzatori</option><option>Monitoraggio</option><option>Altro</option>
+                </select>
+              </div>
+              <div>
+                <label for="pImmagine">URL immagine</label>
+                <input id="pImmagine" name="immagine" placeholder="https://..." />
+              </div>
+            </div>
+            <label>Carica immagine</label>
+            <input id="pImmagineFile" type="file" accept="image/*" />
+            <label for="pDescr">Descrizione</label>
+            <textarea id="pDescr" name="descrizione" placeholder="Breve descrizione..."></textarea>
+            <label for="pBullets">Punti elenco (1 per riga)</label>
+            <textarea id="pBullets" name="bullets" placeholder="Potenza: ...&#10;Efficienza: ..."></textarea>
+            <div class="row2">
+              <div>
+                <label for="pPdf">Link PDF</label>
+                <input id="pPdf" name="pdf" placeholder="https://.../scheda.pdf" />
+                <label>Carica PDF</label>
+                <input id="pPdfFile" type="file" accept="application/pdf" />
+              </div>
+              <div>
+                <label for="pLink">Link esterno</label>
+                <input id="pLink" name="link" placeholder="https://..." />
+              </div>
+            </div>
+            <div class="panel-actions">
+              <button class="btnx primary" type="submit">Aggiungi prodotto</button>
+            </div>
+            <div id="prodottoMsg" class="notice hide"></div>
+          </form>
+        </div>
+
+        <!-- Aggiungi Incentivo -->
+        <div class="panel" id="incentiviPanel">
+          <h2 class="panel__title">Aggiungi incentivo</h2>
+          <p class="panel__sub">Apparirà automaticamente nella sezione Incentivi.</p>
+          <form id="incentivoForm">
+            <label for="iTitolo">Titolo *</label>
+            <input id="iTitolo" name="titolo" required placeholder="Es: Bando XYZ" />
+            <div class="row2">
+              <div>
+                <label for="iStato">Stato</label>
+                <input id="iStato" name="stato" placeholder="Es: Attivo / In arrivo" />
+              </div>
+              <div>
+                <label for="iScadenza">Scadenza</label>
+                <input id="iScadenza" name="scadenza" placeholder="Es: 30/06/2026" />
+              </div>
+            </div>
+            <label for="iDescr">Descrizione</label>
+            <textarea id="iDescr" name="descrizione" placeholder="Breve descrizione..."></textarea>
+            <label for="iBullets">Punti elenco (1 per riga)</label>
+            <textarea id="iBullets" name="bullets" placeholder="Requisiti: ...&#10;Contributo: ..."></textarea>
+            <label for="iImmagine">URL immagine</label>
+            <input id="iImmagine" name="immagine" placeholder="https://..." />
+            <label>Carica immagine</label>
+            <input id="iImmagineFile" type="file" accept="image/*" />
+            <div class="row2">
+              <div>
+                <label for="iLink1">Link 1</label>
+                <input id="iLink1" name="link1" placeholder="https://..." />
+                <label for="iLink1Label">Etichetta Link 1</label>
+                <input id="iLink1Label" name="link1Label" placeholder="Es: Vai al sito" />
+              </div>
+              <div>
+                <label for="iLink2">Link 2</label>
+                <input id="iLink2" name="link2" placeholder="https://..." />
+                <label for="iLink2Label">Etichetta Link 2</label>
+                <input id="iLink2Label" name="link2Label" placeholder="Es: Area clienti" />
+              </div>
+            </div>
+            <div class="panel-actions">
+              <button class="btnx primary" type="submit">Aggiungi incentivo</button>
+            </div>
+            <div id="incentivoMsg" class="notice hide"></div>
+          </form>
+        </div>
+
+        <!-- Lista Prodotti -->
+        <div class="panel full-row" id="prodottiListPanel">
+          <div class="panel-topbar">
+            <h2 class="panel__title">Prodotti salvati</h2>
+            <button class="btnx" type="button" id="refreshProdottiBtn">Aggiorna</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Titolo</th><th>Categoria</th><th>Immagine</th><th>PDF</th><th>Link</th><th></th></tr></thead>
+              <tbody id="prodottiBody"><tr><td colspan="7" style="opacity:.5">Nessun dato caricato.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Lista Incentivi -->
+        <div class="panel full-row" id="incentiviListPanel">
+          <div class="panel-topbar">
+            <h2 class="panel__title">Incentivi salvati</h2>
+            <button class="btnx" type="button" id="refreshIncentiviBtn">Aggiorna</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Titolo</th><th>Stato</th><th>Scadenza</th><th>Immagine</th><th></th></tr></thead>
+              <tbody id="incentiviBody"><tr><td colspan="6" style="opacity:.5">Nessun dato caricato.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal modifica -->
+    <dialog id="editDialog">
+      <div class="dialog-inner">
+        <div class="panel-topbar">
+          <h2 id="editTitle" style="margin:0;font-size:1.1rem">Modifica</h2>
+          <button class="btnx" type="button" id="editCloseBtn">✕ Chiudi</button>
+        </div>
+        <form id="editForm">
+          <input type="hidden" id="editType" />
+          <input type="hidden" id="editId" />
+          <div id="editFields" style="margin-top:16px"></div>
+          <div class="panel-actions">
+            <button class="btnx primary" type="submit">Salva modifiche</button>
+          </div>
+          <div id="editMsg" class="notice hide"></div>
+        </form>
+      </div>
+    </dialog>
+
+  </main>
+
+  <!--
+    Elementi "fantasma" richiesti da admin-panel.js (usa questi ID internamente).
+    Sono nascosti: il vero layout usa loginCard/adminWrap sopra.
+  -->
+  <div id="loginPanel" class="hide" aria-hidden="true"></div>
+  <div id="adminPanel" class="hide" aria-hidden="true"></div>
+  <button id="clearSessionBtn" class="hide" aria-hidden="true" type="button" tabindex="-1"></button>
+
+  <!-- API base init -->
+  <script>
+    (function () {
+      try {
+        var meta = document.querySelector('meta[name="ke-api-base"]');
+        var stored = (localStorage.getItem('ke_api_base') || '').trim().replace(/\/$/, '');
+        if (meta) {
+          var current = (meta.getAttribute('content') || '').trim().replace(/\/$/, '');
+          if (!current && stored) meta.setAttribute('content', stored);
+        }
+        var inp = document.getElementById('keApiBase');
+        if (inp) {
+          inp.value = (meta ? (meta.getAttribute('content') || '') : '') || stored || '';
+          inp.addEventListener('change', function () {
+            var v = (inp.value || '').trim().replace(/\/$/, '');
+            try { localStorage.setItem('ke_api_base', v); } catch(e) {}
+            if (meta) meta.setAttribute('content', v);
+          });
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <script src="admin-panel.js"></script>
+
+  <!-- Layout sync: osserva i pannelli originali che admin-panel.js gestisce e rispecchia lo stato sul nuovo layout -->
+  <script>
+    (function () {
+      var loginCard = document.getElementById('loginCard');
+      var adminWrap = document.getElementById('adminWrap');
+      var loginPanelOrig = document.getElementById('loginPanel');
+      var adminPanelOrig = document.getElementById('adminPanel');
+
+      function syncLayout() {
+        var authed = loginPanelOrig && loginPanelOrig.classList.contains('hide');
+        if (loginCard) loginCard.classList.toggle('hide', authed);
+        if (adminWrap) adminWrap.classList.toggle('hide', !authed);
+      }
+
+      // Osserva i cambiamenti di classe sui pannelli originali che admin-panel.js controlla
+      if (loginPanelOrig) {
+        new MutationObserver(syncLayout).observe(loginPanelOrig, { attributes: true, attributeFilter: ['class'] });
+      }
+      if (adminPanelOrig) {
+        new MutationObserver(syncLayout).observe(adminPanelOrig, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      // Stato iniziale
+      syncLayout();
+
+      /* Nav height */
+      var nav = document.querySelector('.ke-nav');
+      if (nav) {
+        var setH = function () { document.documentElement.style.setProperty('--keNavH', (nav.offsetHeight || 88) + 'px'); };
+        setH();
+        window.addEventListener('resize', setH);
+      }
+    })();
+  </script>
+
+  <!-- Video: avvio lazy dopo idle per non bloccare il caricamento -->
+  <script>
+    (function () {
+      function startVideo() {
+        var v = document.getElementById('bgVideo');
+        if (v) v.play().catch(function () {});
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(startVideo, { timeout: 2000 });
+      } else {
+        setTimeout(startVideo, 600);
+      }
+    })();
+  </script>
+
+  <script defer src="ke-animations.js"></script>
+</body>
+</html>
