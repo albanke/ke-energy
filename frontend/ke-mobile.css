@@ -7,6 +7,17 @@
 html { -webkit-text-size-adjust: 100%; }
 body { overflow-x: hidden; }
 
+/* Hamburger: nascosto di default, visibile solo su mobile via media query */
+.ke-hamburger { display: none; }
+/* Drawer e overlay: nascosti di default */
+.ke-nav-drawer { display: none; }
+.ke-nav-overlay { display: none; }
+@media (max-width: 980px) {
+  .ke-nav-drawer { display: flex; transform: translateX(105%); }
+  .ke-nav-drawer.is-open { transform: translateX(0); }
+  .ke-nav-overlay.is-open { display: block; }
+}
+
 /* ============================================================
    NAV HAMBURGER
    ============================================================ */

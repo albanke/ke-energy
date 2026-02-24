@@ -11,6 +11,8 @@
 
 body{
   font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+  background: #030303 !important;
+  color: #ffffff !important;
   overflow-x:hidden;
 }
 
@@ -209,9 +211,11 @@ input,select,textarea{
 }
 .ke-menu-toggle span{display:block; width:18px; height:2px; background: rgba(255,255,255,.88); border-radius:2px;}
 .ke-mobile-overlay{
+  display: none;
   position:fixed; inset:0; background: rgba(0,0,0,.55);
   z-index:1200;
 }
+.ke-mobile-overlay.is-open { display: block; }
 .ke-mobile-drawer{
   position:fixed;
   top:0; right:0;
@@ -430,8 +434,10 @@ a:hover{ color: var(--accent) !important; }
 @media (max-width: 980px){
   :root{ --keNavH: 78px; }
   .ke-nav{ padding: 12px 5% !important; }
-  .ke-logo img{ height: 38px !important; }
-  .ke-logo{ font-size: 1.05rem !important; }
+  .ke-nav .ke-logo img{ height: 38px !important; }
+  .ke-nav .ke-logo{ font-size: 1.05rem !important; }
+  .ke-footer .ke-logo img{ height: 28px !important; }
+  .ke-footer .ke-logo{ font-size: .88rem !important; }
 }
 
 html, body{ max-width: 100%; overflow-x: hidden; }
@@ -472,13 +478,16 @@ main{padding-top:88px;}
   border-color: rgba(74,222,128,.45);
 }
 
-/* ===== v16 bigger logo ===== */
-.ke-logo img{ height: 52px !important; }
-.ke-logo{ font-size: 1.18rem !important; }
+/* ===== v16 bigger logo — solo nella nav, non nel footer ===== */
+.ke-nav .ke-logo img{ height: 52px !important; }
+.ke-nav .ke-logo{ font-size: 1.18rem !important; }
 @media (max-width:980px){
-  .ke-logo img{ height: 46px !important; }
-  .ke-logo{ font-size: 1.10rem !important; }
+  .ke-nav .ke-logo img{ height: 46px !important; }
+  .ke-nav .ke-logo{ font-size: 1.10rem !important; }
 }
+/* Footer logo: dimensione normale */
+.ke-footer .ke-logo img { height: 32px !important; }
+.ke-footer .ke-logo { font-size: .95rem !important; }
 
 /* ===== v16 brighter video background ===== */
 .ke-site-bg video{
