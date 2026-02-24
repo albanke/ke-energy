@@ -203,6 +203,11 @@
   #cta .ke-col-4, #cta .ke-col-6, #cta .ke-col-12 { grid-column: 1 / -1 !important; }
   #cta h2 { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
 }
+
+/* ── Fallback prodotti: nascosta su mobile perché il carosello funziona ── */
+@media (max-width: 1023px) {
+  .ke-products-fallback { display: none !important; }
+}
 </style>
 </head>
 <body class="ke-home"><div aria-hidden="true" class="ke-site-bg">

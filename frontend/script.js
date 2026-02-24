@@ -196,7 +196,9 @@ if (contactForm) {
 }
 
 // ===== Mobile hamburger for KE nav (inject once, works on every page) =====
+// DISABILITATO: ke-mobile.js gestisce già l'hamburger (.ke-hamburger)
 (function(){
+  return; // ke-mobile.js ha il suo hamburger, non duplicare
   const nav = document.querySelector('.ke-nav');
   if (!nav) return;
 
