@@ -631,3 +631,65 @@ body.page-ambiti .listCard{ overflow:hidden !important; }
 .quoteTab{ background: rgba(0,0,0,.18) !important; color:#fff !important; border: 1px solid rgba(255,255,255,.18) !important; }
 .quoteTab:hover{ background: rgba(0,0,0,.26) !important; }
 .quoteTab.is-active{ background:#0b1220 !important; color:#fff !important; border-color: rgba(255,255,255,.28) !important; }
+
+
+/* ===== GOVERNANCE & COMPLIANCE: dark theme fix =====
+   style.css usa colori chiari (#1b1f24, #4a5562, #fff background)
+   qui li sovrascriviamo per il tema scuro del sito
+   ===================================================== */
+.docItem {
+  background: rgba(255,255,255,.05) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: none !important;
+}
+.docSummary {
+  background: transparent !important;
+}
+.docTitle {
+  color: #ffffff !important;
+  font-size: 1rem !important;
+}
+.docHint {
+  color: rgba(255,255,255,.58) !important;
+}
+/* Freccia accordion leggibile */
+.docSummary::after {
+  filter: invert(1) !important;
+}
+
+/* Testo prose leggibile su dark */
+.prose h2, .prose h3, .prose h4 {
+  color: #ffffff !important;
+}
+.prose p, .prose li {
+  color: rgba(255,255,255,.80) !important;
+}
+.prose strong {
+  color: #ffffff !important;
+}
+.prose a {
+  color: var(--accent) !important;
+}
+.prose ul, .prose ol {
+  color: rgba(255,255,255,.80) !important;
+}
+
+/* docBody aperto: sfondo leggibile */
+.docBody {
+  background: transparent !important;
+  color: rgba(255,255,255,.80) !important;
+}
+.docBody h3 {
+  color: var(--accent) !important;
+}
+.docBody p, .docBody li {
+  color: rgba(255,255,255,.78) !important;
+}
+
+/* Container pagina governance */
+.container.content.prose {
+  color: rgba(255,255,255,.85) !important;
+}
+.container.content.prose h2 {
+  color: #ffffff !important;
+}

@@ -67,11 +67,13 @@
     const track = section.querySelector('.ke-hscroll__track');
     if (!wrap || !track) return () => {};
 
-    /* Pre-warm GPU layer */
-    wrap.style.overflow        = 'hidden';
-    track.style.willChange     = 'transform';
-    track.style.transform      = 'translateX(0px) translateZ(0)';
-    section.style.willChange   = 'transform';
+    /* Pre-warm GPU layer — solo desktop */
+    if (!isMobile()) {
+      wrap.style.overflow        = 'hidden';
+      track.style.willChange     = 'transform';
+      track.style.transform      = 'translateX(0px) translateZ(0)';
+      section.style.willChange   = 'transform';
+    }
 
     const getAmount = () => Math.max(0, track.scrollWidth - wrap.clientWidth);
 
