@@ -11,11 +11,22 @@
 
   const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
 
-  /* ── Native hscroll su mobile ── */
+  /* ── Native hscroll su mobile: aggiunge classe E resetta transform GSAP ── */
   const setNativeHScroll = () => {
     document.querySelectorAll('#prodotti-home .ke-hscroll, #ambiti .ke-hscroll').forEach(w => {
-      if (isMobile()) w.classList.add('ke-hscroll--native');
-      else w.classList.remove('ke-hscroll--native');
+      const track = w.querySelector('.ke-hscroll__track');
+      if (isMobile()) {
+        w.classList.add('ke-hscroll--native');
+        w.style.overflow = 'auto';
+        w.style.transform = '';
+        w.style.position = '';
+        if (track) {
+          track.style.transform = '';
+          track.style.willChange = '';
+        }
+      } else {
+        w.classList.remove('ke-hscroll--native');
+      }
     });
   };
   setNativeHScroll();
@@ -105,6 +116,21 @@
   }
 
   window.addEventListener('load', () => {
+    /* Su mobile: resetta qualsiasi transform iniettato da GSAP sulle track */
+    if (isMobile()) {
+      document.querySelectorAll(
+        '#prodotti-home .ke-hscroll__track, #ambiti .ke-hscroll__track'
+      ).forEach(track => {
+        track.style.transform = '';
+        track.style.willChange = '';
+        if (track.parentElement) {
+          track.parentElement.style.overflow = 'auto';
+          track.parentElement.style.transform = '';
+          track.parentElement.style.position = '';
+        }
+      });
+    }
+
     ScrollTrigger.matchMedia({
       '(min-width: 1024px)': () => {
         const cleanAmbiti   = initPinnedHScroll('#ambiti',       0.22, 'kePinnedAmbiti');
