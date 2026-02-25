@@ -93,30 +93,8 @@
 <script defer="" src="ke-home.js"></script>
 <script defer="" src="script.js"></script>
 
-<style id="ke-fix-home-ambiti-images">
-/* FIX HOME: immagini Ambiti a filo nel riquadro */
-#ambiti .ke-card{
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-#ambiti .ke-card > img.ke-card-img{
-  width: 100% !important;
-  height: 220px !important;
-  object-fit: cover !important;
-  display: block !important;
-  margin: 0 !important;
-}
-/* padding solo al contenuto testuale */
-#ambiti .ke-card > :not(img.ke-card-img){
-  padding-left: 28px !important;
-  padding-right: 28px !important;
-}
-#ambiti .ke-card > :last-child{
-  padding-bottom: 28px !important;
-}
-</style>
-
 <link href="ke-animations.css" rel="stylesheet"/>
+<link href="ke-pages.css" rel="stylesheet"/>
 <link href="ke-mobile.css" rel="stylesheet"/>
 <style id="ke-fix-mobile-home">
 /* ── WRAP: padding corretto su mobile ── */
@@ -230,23 +208,24 @@
 </div>
 </div>
 <main>
-<section class="ke-wrap ke-hero" id="home">
+<section class="ke-hero-section" id="home">
+<div class="ke-wrap ke-hero">
 <div class="ke-copy" style="max-width:860px">
-<div class="ke-kicker ke-reveal">Advanced Solar Systems • Lombardia</div>
-<h1 class="ke-reveal">KE GROUP<br/><span class="ke-outline">ENERGY</span></h1>
-<p class="ke-reveal">
-          Impianti fotovoltaici e sistemi di accumulo per privati e aziende.
-          Progettazione, pratiche, installazione e assistenza: un unico partner per la tua indipendenza energetica.
-        </p>
-<div class="ke-actions ke-reveal">
-<a class="ke-btn ke-btn--accent" href="preventivo.html">Richiedi preventivo →</a>
-<a class="ke-btn" href="prodotti.html">Vedi prodotti</a>
-<a class="ke-btn" href="contatti-istituzionali.html">Contatti</a>
+  <div class="ke-kicker ke-hero-immediate">Advanced Solar Systems • Lombardia</div>
+  <h1 class="ke-hero-immediate ke-hero-title">KE GROUP<br/><span class="ke-outline">ENERGY</span></h1>
+  <p class="ke-hero-immediate ke-hero-sub">
+    Impianti fotovoltaici e sistemi di accumulo per privati e aziende.
+    Progettazione, pratiche, installazione e assistenza: un unico partner per la tua indipendenza energetica.
+  </p>
+  <!-- Bottoni: nascosti, appaiono allo scroll -->
+  <div class="ke-actions ke-hero-scroll-reveal">
+    <a class="ke-btn ke-btn--accent" href="preventivo.html">Richiedi preventivo →</a>
+    <a class="ke-btn" href="prodotti.html">Vedi prodotti</a>
+    <a class="ke-btn" href="contatti-istituzionali.html">Contatti</a>
+  </div>
 </div>
-<div class="ke-badge ke-reveal" style="margin-top:18px; display:inline-flex; gap:10px; align-items:center; padding:10px 14px; border-radius:999px; background:rgba(74,222,128,.16); border:1px solid rgba(74,222,128,.35); font-weight:900; letter-spacing:2px; text-transform:uppercase; font-size:.72rem;">
-<span style="color:var(--accent)">Power</span> 2026 • Prossimo livello
 </div>
-</div>
+
 </section>
 <section class="ke-wrap ke-section ke-panel" id="azienda"><div class="ke-panel-inner">
 <h2 class="ke-reveal">L'ECCELLENZA<br/><span class="ke-outline">ITALIANA</span></h2>
@@ -409,8 +388,20 @@
 </div>
 </div>
 </div></section>
-<section class="ke-newsletter">
-  <div class="ke-newsletter__inner">
+<!-- Newsletter popup trigger -->
+<section class="ke-newsletter-trigger-section">
+  <div class="ke-newsletter-trigger-inner">
+    <span class="ke-newsletter__tag">Newsletter</span>
+    <h2>Resta sempre aggiornato</h2>
+    <p>Incentivi, bandi GSE e opportunità per il fotovoltaico — direttamente nella tua inbox.</p>
+    <button class="ke-newsletter__btn ke-nl-open-btn" id="ke-nl-open-btn">📬 Iscriviti alla Newsletter</button>
+  </div>
+</section>
+
+<!-- Newsletter popup overlay -->
+<div class="ke-nl-overlay" id="ke-nl-overlay" aria-hidden="true">
+  <div class="ke-nl-popup" role="dialog" aria-modal="true" aria-label="Iscrizione Newsletter">
+    <button class="ke-nl-close" id="ke-nl-close" aria-label="Chiudi">&times;</button>
     <span class="ke-newsletter__tag">Newsletter</span>
     <h2>KE Energy Newsletter</h2>
     <p>Resta aggiornato su incentivi, bandi GSE e opportunità per il fotovoltaico.</p>
@@ -420,9 +411,39 @@
     </form>
     <div class="ke-newsletter__msg" id="ke-nl-msg"></div>
   </div>
-</section>
+</div>
 <script>
 (function(){
+  var overlay=document.getElementById("ke-nl-overlay");
+  var openBtn=document.getElementById("ke-nl-open-btn");
+  var closeBtn=document.getElementById("ke-nl-close");
+
+  function openPopup(){
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+    setTimeout(function(){ document.getElementById("ke-nl-email").focus(); }, 300);
+  }
+  function closePopup(){
+    overlay.classList.remove("active");
+    overlay.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+
+  if(openBtn) openBtn.addEventListener("click", openPopup);
+  if(closeBtn) closeBtn.addEventListener("click", closePopup);
+  if(overlay) overlay.addEventListener("click", function(e){ if(e.target===overlay) closePopup(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closePopup(); });
+
+  // Auto-open after 8 seconds if not already subscribed
+  // Mostra 1 volta per sessione, mai se già iscritto
+  if(!localStorage.getItem("ke-nl-subscribed") && !sessionStorage.getItem("ke-nl-shown")){
+    setTimeout(function(){
+      openPopup();
+      sessionStorage.setItem("ke-nl-shown","1");
+    }, 8000);
+  }
+
   var form=document.getElementById("ke-nl-form");
   var msg=document.getElementById("ke-nl-msg");
   if(!form) return;
@@ -439,10 +460,14 @@
       msg.className="ke-newsletter__msg success";
       msg.textContent="✓ Iscrizione avvenuta correttamente!";
       form.reset();
+      localStorage.setItem("ke-nl-subscribed","1");
+      setTimeout(closePopup, 2500);
     }).catch(function(){
       msg.className="ke-newsletter__msg success";
       msg.textContent="✓ Iscrizione avvenuta correttamente!";
       form.reset();
+      localStorage.setItem("ke-nl-subscribed","1");
+      setTimeout(closePopup, 2500);
     }).finally(function(){
       btn.disabled=false;
       btn.textContent="Iscriviti ora";
@@ -516,5 +541,38 @@
 })();
 </script>
 <script defer src="ke-mobile.js"></script>
+
+
+
+
+<!-- Scroll hint: fixed in basso al centro, visibile subito -->
+<div class="ke-scroll-hint" id="ke-scroll-hint" aria-hidden="true">
+  <div class="ke-scroll-hint-arrow"></div>
+  <span>Scorri</span>
+</div>
+<script>
+(function(){
+  var btns = document.querySelector('.ke-hero-scroll-reveal');
+  var hint = document.getElementById('ke-scroll-hint');
+  var done = false;
+
+  function hideHint() {
+    if (done) return;
+    done = true;
+    if (hint)  hint.classList.add('is-hidden');
+    if (btns)  btns.classList.add('is-visible');
+    window.removeEventListener('scroll', onScroll);
+  }
+
+  function onScroll() {
+    if (window.scrollY > 30) hideHint();
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Fallback: nasconde dopo 6s anche senza scroll
+  setTimeout(hideHint, 6000);
+})();
+</script>
 </body>
 </html>

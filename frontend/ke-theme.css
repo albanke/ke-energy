@@ -290,17 +290,24 @@ small, .muted { color: rgba(255,255,255,.72) !important; }
 /* neutralize any white page backgrounds from legacy css */
 section, main, .pageHero, .section { background: transparent !important; }
 
-/* Light cards: testo scuro su box chiari */
+/* Dark cards — coerenti con il tema scuro */
 .ke-card--light{
-  background: rgba(255,255,255,.92) !important;
-  color: #0b0b0f !important;
-  border-top-color: rgba(0,0,0,.08) !important;
+  background: rgba(255,255,255,.04) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-top-color: rgba(74,222,128,.18) !important;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+.ke-card--light:hover{
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(74,222,128,.2) !important;
+  border-color: rgba(74,222,128,.2) !important;
 }
 .ke-card--light h3, .ke-card--light p, .ke-card--light li, .ke-card--light a{
-  color: #0b0b0f !important;
+  color: #fff !important;
 }
-.ke-card--light p{opacity:.85 !important}
-.ke-card--light a:hover{color:#0b0b0f !important}
+.ke-card--light p{opacity:.70 !important}
+.ke-card--light a:hover{color:var(--accent) !important}
 
 /* Immagini dentro le card */
 .ke-card-img{
@@ -592,35 +599,10 @@ main{ padding-top: calc(var(--keNavH) + env(safe-area-inset-top, 0px)) !importan
   margin-top: calc(var(--keNavH) + 16px) !important;
 }
 
-/* ===== v18 ambiti cards text visible ===== */
-body.page-ambiti .card,
-body.page-ambiti .card *,
-body.page-ambiti .serviceCard,
-body.page-ambiti .serviceCard *,
-body.page-ambiti .featureCard,
-body.page-ambiti .featureCard *{
-  color: #0b0b0f !important;
-}
-body.page-ambiti .card p,
-body.page-ambiti .serviceCard p,
-body.page-ambiti .featureCard p{
-  color: rgba(11,11,15,.88) !important;
-  opacity:1 !important;
-}
 
 
-/* ===== v19 ambiti listCard hard-fix (text + images) ===== */
-body.page-ambiti .listCard{
-  background:#ffffff !important;
-}
-body.page-ambiti .listCard,
-body.page-ambiti .listCard *{
-  color:#0b0b0f !important;
-}
-body.page-ambiti .listCard p{
-  color: rgba(11,11,15,.88) !important;
-  opacity:1 !important;
-}
+
+
 body.page-ambiti img.listCard__img{
   width: 100% !important;
   height: 200px !important;
@@ -631,8 +613,7 @@ body.page-ambiti img.listCard__img{
 }
 
 
-/* ===== v20 listCard overflow clamp ===== */
-body.page-ambiti .listCard{ overflow:hidden !important; }
+
 
 
 /* Preventivo tabs contrast fix */

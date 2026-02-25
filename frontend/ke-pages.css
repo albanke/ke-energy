@@ -1,0 +1,770 @@
+/* ═══════════════════════════════════════════════
+   KE PAGES — Restyling pagine interne v1
+   Animazioni, card, layout coerente con index
+   ═══════════════════════════════════════════════ */
+
+/* ── 1. PAGE HERO migliorato ── */
+.pageHero {
+  position: relative;
+  padding: 140px 5% 80px;
+  text-align: center;
+  overflow: hidden;
+}
+.pageHero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,222,128,0.08), transparent 70%);
+  pointer-events: none;
+}
+.pageHero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(74,222,128,0.3), transparent);
+}
+.pageHero h1 {
+  font-size: clamp(2rem, 6vw, 4rem) !important;
+  line-height: 1.05 !important;
+  margin-bottom: 16px !important;
+  background: linear-gradient(135deg, #fff 60%, rgba(74,222,128,0.9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.pageHero p {
+  font-size: clamp(1rem, 2vw, 1.2rem) !important;
+  color: rgba(255,255,255,.65) !important;
+  max-width: 600px;
+  margin: 0 auto 20px !important;
+}
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4) !important;
+  margin-top: 8px;
+}
+.breadcrumb a {
+  color: var(--accent) !important;
+  text-decoration: none;
+}
+.breadcrumb a:hover { opacity: .8; }
+
+/* ── 2. SECTION HEADERS ── */
+.sectionHead {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+.sectionHead h2 {
+  font-size: clamp(1.4rem, 3vw, 2.2rem) !important;
+  margin-bottom: 12px !important;
+}
+.sectionHead p {
+  color: rgba(255,255,255,.6) !important;
+  font-size: 1rem;
+}
+
+/* ── 3. LIST CARDS (ambiti) — dark glassmorphism ── */
+.listCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.listCard {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  transition: transform 0.3s var(--ease-spring, cubic-bezier(0.34,1.56,0.64,1)),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease !important;
+  position: relative;
+}
+.listCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,222,128,0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.listCard:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(74,222,128,0.2) !important;
+  border-color: rgba(74,222,128,0.2) !important;
+}
+.listCard:hover::before { opacity: 1; }
+
+/* Override page-ambiti white cards with dark theme */
+body.page-ambiti .listCard {
+  background: rgba(255,255,255,.05) !important;
+  color: #fff !important;
+}
+body.page-ambiti .listCard,
+body.page-ambiti .listCard * {
+  color: #fff !important;
+}
+body.page-ambiti .listCard p {
+  color: rgba(255,255,255,.72) !important;
+}
+body.page-ambiti .listCard h3 {
+  color: #fff !important;
+}
+body.page-ambiti img.listCard__img {
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover !important;
+  display: block !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  filter: brightness(0.85) saturate(1.1);
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+body.page-ambiti .listCard:hover img.listCard__img {
+  filter: brightness(0.95) saturate(1.2);
+  transform: scale(1.03);
+}
+body.page-ambiti .listCard h3,
+body.page-ambiti .listCard p,
+body.page-ambiti .listCard a,
+body.page-ambiti .listCard .btn {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+body.page-ambiti .listCard h3 {
+  padding-top: 18px !important;
+  font-size: 1rem !important;
+  letter-spacing: .08em !important;
+}
+body.page-ambiti .listCard p:last-of-type {
+  padding-bottom: 20px !important;
+}
+
+/* Cards without images (tech section) */
+body.page-ambiti .listCard:not(:has(img)) {
+  padding: 28px 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body.page-ambiti .listCard:not(:has(img))::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: auto;
+  padding: 0 !important;
+}
+
+/* ── 4. PRODUCT / GENERIC CARDS ── */
+.card, .cards .card {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease !important;
+  position: relative;
+}
+.card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px rgba(74,222,128,0.18) !important;
+  border-color: rgba(74,222,128,0.18) !important;
+}
+.card img {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.4s ease !important;
+}
+.card:hover img { transform: scale(1.04) !important; }
+.card__body {
+  padding: 20px !important;
+}
+.card__body h3 {
+  font-size: .9rem !important;
+  letter-spacing: .08em !important;
+  margin-bottom: 8px !important;
+  color: #fff !important;
+}
+.card__body p {
+  color: rgba(255,255,255,.62) !important;
+  font-size: .88rem !important;
+  line-height: 1.5 !important;
+}
+
+/* ── 5. PARTNER CARDS ── */
+.partnerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.partnerCard {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 20px !important;
+  padding: 32px 24px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease !important;
+}
+.partnerCard:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(74,222,128,0.2) !important;
+  border-color: rgba(74,222,128,0.2) !important;
+}
+.partnerCard__logoWrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  transition: background 0.3s ease;
+}
+.partnerCard:hover .partnerCard__logoWrap {
+  background: rgba(74,222,128,0.12);
+}
+.partnerCard__logo {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: brightness(1.2) !important;
+}
+.partnerCard__title {
+  font-size: .85rem !important;
+  letter-spacing: .06em !important;
+  color: #fff !important;
+  margin: 0 !important;
+}
+
+/* ── 6. CTA BANNER ── */
+.ctaBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  background: rgba(74,222,128,0.06) !important;
+  border: 1px solid rgba(74,222,128,0.2) !important;
+  border-radius: 20px !important;
+  padding: 32px 36px !important;
+  margin-top: 48px !important;
+  position: relative;
+  overflow: hidden;
+}
+.ctaBanner::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(74,222,128,0.1), transparent 70%);
+  pointer-events: none;
+}
+.ctaBanner h3 {
+  font-size: 1.1rem !important;
+  letter-spacing: .06em !important;
+  margin-bottom: 6px !important;
+}
+.ctaBanner p {
+  color: rgba(255,255,255,.62) !important;
+  font-size: .9rem !important;
+  margin: 0 !important;
+}
+
+/* ── 7. SPLIT LAYOUT ── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .split { grid-template-columns: 1fr; gap: 36px; }
+}
+.split__media { position: relative; }
+.mediaImg, .mediaVideo {
+  width: 100% !important;
+  border-radius: 20px !important;
+  display: block !important;
+}
+.mediaVideo {
+  aspect-ratio: 16/9 !important;
+  object-fit: cover !important;
+}
+.mediaBadge {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(74,222,128,0.12);
+  border: 1px solid rgba(74,222,128,0.3);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ── 8. PROS TABLE / VALUE LIST (chi-siamo) ── */
+.ke-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 32px 0;
+}
+.ke-value-item {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 24px 20px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.ke-value-item:hover {
+  border-color: rgba(74,222,128,0.2);
+  transform: translateY(-3px);
+}
+.ke-value-icon {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.ke-value-item h4 {
+  font-size: .8rem !important;
+  letter-spacing: .1em !important;
+  color: var(--accent) !important;
+  margin-bottom: 6px !important;
+}
+.ke-value-item p {
+  font-size: .85rem !important;
+  color: rgba(255,255,255,.62) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* ── 9. STEPS / PROCESS (chi-siamo approccio) ── */
+.ke-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 32px 0;
+  position: relative;
+}
+.ke-steps::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+.ke-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  position: relative;
+}
+.ke-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(74,222,128,0.12);
+  border: 1px solid rgba(74,222,128,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-size: .75rem;
+  font-weight: 900;
+  color: var(--accent);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.ke-step-content h4 {
+  font-size: .85rem !important;
+  letter-spacing: .08em !important;
+  color: #fff !important;
+  margin-bottom: 4px !important;
+}
+.ke-step-content p {
+  font-size: .88rem !important;
+  color: rgba(255,255,255,.60) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* ── 10. DOCUMENT ACCORDION (governance) ── */
+.docAcc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+.docItem {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+.docItem[open] {
+  border-color: rgba(74,222,128,0.2) !important;
+}
+.docSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px !important;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+.docSummary::-webkit-details-marker { display: none; }
+.docSummary:hover { background: rgba(255,255,255,.03); }
+.docTitle {
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+}
+.docHint {
+  font-size: .78rem !important;
+  color: rgba(255,255,255,.45) !important;
+  font-weight: 400 !important;
+}
+.docSummary::after {
+  content: '+';
+  font-size: 1.3rem;
+  color: var(--accent);
+  line-height: 1;
+  transition: transform 0.3s ease;
+  filter: none !important;
+}
+.docItem[open] .docSummary::after {
+  content: '−';
+  transform: none;
+}
+.docBody {
+  padding: 0 24px 24px !important;
+  border-top: 1px solid rgba(255,255,255,.07) !important;
+  margin-top: 0 !important;
+}
+
+/* ── 11. INCENTIVI / BANDI CARDS ── */
+.ke-bando-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.ke-bando-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent), rgba(74,222,128,0.3));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ke-bando-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.35), 0 0 0 1px rgba(74,222,128,0.18);
+  border-color: rgba(74,222,128,0.18);
+}
+.ke-bando-card:hover::after { opacity: 1; }
+.ke-bando-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  display: block;
+}
+.ke-bando-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(74,222,128,.10);
+  border: 1px solid rgba(74,222,128,.2);
+  border-radius: 999px;
+  padding: 4px 12px;
+  display: inline-block;
+  width: fit-content;
+}
+.ke-bando-card h3 {
+  font-size: .95rem !important;
+  letter-spacing: .06em !important;
+  color: #fff !important;
+  margin: 0 !important;
+}
+.ke-bando-card p {
+  font-size: .85rem !important;
+  color: rgba(255,255,255,.62) !important;
+  line-height: 1.55 !important;
+  margin: 0 !important;
+  flex: 1;
+}
+
+/* ── 12. LINKS LIST (bandi utili) ── */
+.prose ul li a,
+.content ul li a {
+  color: var(--accent) !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+.prose ul li a:hover,
+.content ul li a:hover { opacity: .75; }
+.prose ul li,
+.content ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  color: rgba(255,255,255,.75) !important;
+}
+.prose ul li:last-child { border-bottom: none; }
+
+/* ── 13. SECTION DARK STRIP ── */
+.section--dark {
+  background: rgba(0,0,0,0.3) !important;
+  border-top: 1px solid rgba(255,255,255,.06) !important;
+  border-bottom: 1px solid rgba(255,255,255,.06) !important;
+}
+
+/* ── 14. REVEAL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.2,0.64,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger children */
+.reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal:nth-child(4) { transition-delay: 0.24s; }
+.reveal:nth-child(5) { transition-delay: 0.32s; }
+
+/* ── 15. BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.25s ease,
+              background 0.25s ease !important;
+  cursor: pointer;
+  border: none;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+}
+.btn--primary {
+  background: var(--accent) !important;
+  color: #000 !important;
+  box-shadow: 0 4px 20px rgba(74,222,128,0.25);
+}
+.btn--primary:hover {
+  box-shadow: 0 8px 32px rgba(74,222,128,0.4) !important;
+}
+.btn--light, .btn--ghost {
+  background: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+}
+.btn--light:hover, .btn--ghost:hover {
+  background: rgba(255,255,255,.14) !important;
+}
+.btn--small { padding: 10px 20px; font-size: .65rem; }
+
+.ctaRow {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+/* ── 16. NEWSLETTER (popup on all pages) ── */
+.ke-nl-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  padding: 20px;
+}
+.ke-nl-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.ke-nl-popup {
+  position: relative;
+  background: #111;
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 20px;
+  padding: 48px 40px 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(74,222,128,0.1);
+  transform: translateY(30px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.ke-nl-overlay.active .ke-nl-popup {
+  transform: translateY(0) scale(1);
+}
+.ke-nl-close {
+  position: absolute;
+  top: 16px; right: 18px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 4px 8px;
+}
+.ke-nl-close:hover { color: #fff; }
+.ke-newsletter__tag {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(74,222,128,.10);
+  border: 1px solid rgba(74,222,128,.25);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 14px;
+}
+.ke-newsletter__form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: center;
+}
+.ke-newsletter__input {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255,255,255,.07) !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  border-radius: 999px !important;
+  padding: 12px 20px !important;
+  color: #fff !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: .9rem !important;
+  outline: none;
+}
+.ke-newsletter__input::placeholder { color: rgba(255,255,255,.4) !important; }
+.ke-newsletter__input:focus {
+  border-color: rgba(74,222,128,.4) !important;
+  box-shadow: 0 0 0 3px rgba(74,222,128,.12) !important;
+}
+.ke-newsletter__btn {
+  background: var(--accent) !important;
+  color: #000 !important;
+  font-family: 'Unbounded', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: .72rem !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 12px 24px !important;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease !important;
+}
+.ke-newsletter__btn:hover {
+  transform: translateY(-2px) scale(1.04) !important;
+  box-shadow: 0 8px 24px rgba(74,222,128,.35) !important;
+}
+.ke-newsletter__msg {
+  margin-top: 12px;
+  font-size: .85rem;
+  min-height: 20px;
+}
+.ke-newsletter__msg.success { color: var(--accent); }
+
+/* ── 17. KE-CAT-TITLE (prodotti) ── */
+.ke-cat-title {
+  position: relative;
+  padding-left: 16px !important;
+  margin-top: 48px !important;
+}
+.ke-cat-title::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* ── 18. RESPONSIVE ── */
+@media (max-width: 600px) {
+  .pageHero { padding: 120px 5% 60px; }
+  .ctaBanner { flex-direction: column; text-align: center; }
+  .split { gap: 24px; }
+  .ke-nl-popup { padding: 36px 24px 28px; }
+  .partnerGrid { grid-template-columns: 1fr; }
+}
