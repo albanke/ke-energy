@@ -344,7 +344,7 @@
     initNavScroll();
     initNoise();
     initCursor();
-    initScrollHint();
+    injectScrollHint();
     initParticles();
     initGlitch();
     initScrollObserver();
