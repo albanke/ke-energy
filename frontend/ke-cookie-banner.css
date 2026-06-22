@@ -1,0 +1,236 @@
+/* ===== KE Group Energy – Cookie Banner ===== */
+
+#ke-cookie-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  width: calc(100% - 2rem);
+  max-width: 720px;
+
+  background: rgba(10, 12, 10, 0.97);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(74,222,128,.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  padding: 1.4rem 1.6rem;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+  font-size: .93rem;
+  line-height: 1.5;
+
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 1;
+}
+
+#ke-cookie-banner.ke-cookie--hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+}
+
+.ke-cookie__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ke-cookie__text {
+  font-size: .88rem;
+  color: rgba(255,255,255,.80);
+}
+
+.ke-cookie__text strong {
+  color: #ffffff;
+  font-weight: 700;
+  display: block;
+  margin-bottom: .3rem;
+  font-size: .95rem;
+  font-family: 'Unbounded', system-ui, sans-serif;
+  letter-spacing: .01em;
+}
+
+.ke-cookie__text a {
+  color: #4ade80;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ke-cookie__text a:hover {
+  opacity: .8;
+}
+
+.ke-cookie__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: center;
+}
+
+.ke-cookie__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: .55rem 1.15rem;
+  transition: opacity .2s, transform .15s;
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+
+.ke-cookie__btn:active {
+  transform: scale(.97);
+}
+
+.ke-cookie__btn--accept {
+  background: #4ade80;
+  color: #0b0c0e;
+}
+
+.ke-cookie__btn--accept:hover {
+  opacity: .88;
+}
+
+.ke-cookie__btn--reject {
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.75);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.ke-cookie__btn--reject:hover {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+.ke-cookie__btn--settings {
+  background: transparent;
+  color: rgba(255,255,255,.45);
+  border: 1px solid rgba(255,255,255,.1);
+  font-size: .8rem;
+  padding: .45rem .9rem;
+}
+
+.ke-cookie__btn--settings:hover {
+  color: #4ade80;
+  border-color: rgba(74,222,128,.35);
+}
+
+/* Preferences panel */
+.ke-cookie__prefs {
+  display: none;
+  flex-direction: column;
+  gap: .75rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.ke-cookie__prefs.is-open {
+  display: flex;
+}
+
+.ke-cookie__pref-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ke-cookie__pref-label {
+  flex: 1;
+}
+
+.ke-cookie__pref-label strong {
+  display: block;
+  font-size: .85rem;
+  color: #fff;
+  margin-bottom: .1rem;
+}
+
+.ke-cookie__pref-label span {
+  font-size: .78rem;
+  color: rgba(255,255,255,.45);
+  line-height: 1.4;
+}
+
+/* Toggle switch */
+.ke-cookie__toggle {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.ke-cookie__toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.ke-cookie__toggle-track {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.12);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.ke-cookie__toggle input:checked + .ke-cookie__toggle-track {
+  background: #4ade80;
+}
+
+.ke-cookie__toggle-track::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  top: 3px;
+  left: 3px;
+  transition: transform .2s;
+}
+
+.ke-cookie__toggle input:checked + .ke-cookie__toggle-track::after {
+  transform: translateX(18px);
+}
+
+.ke-cookie__toggle input:disabled + .ke-cookie__toggle-track {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 540px) {
+  #ke-cookie-banner {
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+  #ke-cookie-banner.ke-cookie--hide {
+    transform: translateY(20px);
+  }
+  .ke-cookie__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ke-cookie__btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
