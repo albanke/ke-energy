@@ -436,14 +436,7 @@
   if(overlay) overlay.addEventListener("click", function(e){ if(e.target===overlay) closePopup(); });
   document.addEventListener("keydown", function(e){ if(e.key==="Escape") closePopup(); });
 
-  // Auto-open after 8 seconds if not already subscribed
-  // Mostra 1 volta per sessione, mai se già iscritto
-  if(!localStorage.getItem("ke-nl-subscribed") && !sessionStorage.getItem("ke-nl-shown")){
-    setTimeout(function(){
-      openPopup();
-      sessionStorage.setItem("ke-nl-shown","1");
-    }, 8000);
-  }
+  // FIX: rimosso auto-open automatico dopo 8s — il popup si apre solo cliccando il bottone
 
   var form=document.getElementById("ke-nl-form");
   var msg=document.getElementById("ke-nl-msg");

@@ -333,18 +333,28 @@ section, main, .pageHero, .section { background: transparent !important; }
 }
 
 /* --- Global fixed background video for whole site --- */
+/* FIX: html/body overflow hidden impedisce lo scroll del video fixed */
+html, body {
+  overflow-x: hidden;
+}
+
 .ke-site-bg{
   position:fixed;
   inset:0;
   z-index:-1;
   pointer-events:none;
+  /* FIX: contain paint evita che elementi fixed figli scorrano con la pagina */
+  overflow: hidden;
 }
 .ke-site-bg video{
   width:100%;
   height:100%;
   object-fit:cover;
   filter:saturate(1.05) contrast(1.05) brightness(.55);
-  transform: scale(1.02);
+  /* FIX: rimosso transform:scale(1.02) che creava un nuovo stacking context
+     e rompeva il comportamento fixed su mobile/Safari.
+     Sostituito con will-change per performance GPU senza creare stacking context. */
+  will-change: contents;
 }
 .ke-site-bg__overlay{
   position:absolute; inset:0;
