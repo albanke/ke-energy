@@ -312,13 +312,7 @@
 
   /* ─── HERO VIDEO PARALLAX ─── */
   function initVideoParallax() {
-    if (prefersReducedMotion) return;
-    const video = document.querySelector('.ke-site-bg video');
-    if (!video) return;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      video.style.transform = `translateY(${y * 0.25}px)`;
-    }, { passive: true });
+    // Video fisso come sfondo — parallax disabilitato
   }
 
   /* ─── BACKEND WARM-UP (sveglia Render su ogni pagina) ─── */
