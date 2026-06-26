@@ -815,14 +815,51 @@ if (contactForm) {
     await load();
   }
 
+  /* ─── INCENTIVI HOMEPAGE ─── */
+  async function bootHomeIncentivi() {
+    const home = document.getElementById('ke-incentivi-home');
+    if (!home) return;
+
+    home.innerHTML = `<div class="ke-grid" id="ke-home-incentivi-grid"></div>`;
+    const grid = document.getElementById('ke-home-incentivi-grid');
+
+    // skeleton placeholder
+    grid.innerHTML = [1,2,3].map(() => `
+      <div class="ke-col-4 ke-card--media ke-card--light ke-card" style="opacity:.35;min-height:200px;border-radius:14px;background:rgba(255,255,255,.06)"></div>
+    `).join('');
+
+    try {
+      const rows = await loadPublicRows('incentivi');
+      if (!rows.length) { home.innerHTML = ''; return; }
+
+      grid.innerHTML = rows.map(r => {
+        const img = r.immagine
+          ? `<img alt="${escapeHtml(r.titolo)}" class="ke-card-img" loading="lazy" src="${escapeHtml(r.immagine)}"/>`
+          : '';
+        const desc = r.descrizione
+          ? `<p>${escapeHtml(r.descrizione.length > 100 ? r.descrizione.slice(0,100)+'…' : r.descrizione)}</p>`
+          : '';
+        return `<div class="ke-col-4 ke-card--media ke-card--light ke-reveal ke-card">
+          ${img}
+          <h3>${escapeHtml(r.titolo)}</h3>
+          ${desc}
+        </div>`;
+      }).join('');
+    } catch(e) {
+      home.innerHTML = '';
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       bootDynamicProdotti();
       bootDynamicIncentivi();
+      bootHomeIncentivi();
     });
   } else {
     bootDynamicProdotti();
     bootDynamicIncentivi();
+    bootHomeIncentivi();
   }
 })();
 

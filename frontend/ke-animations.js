@@ -311,8 +311,15 @@
   }
 
   /* ─── HERO VIDEO PARALLAX ─── */
-  // RIMOSSO: causava lo scroll del video fixed verso il basso
-  function initVideoParallax() {}
+  function initVideoParallax() {
+    if (prefersReducedMotion) return;
+    const video = document.querySelector('.ke-site-bg video');
+    if (!video) return;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      video.style.transform = `translateY(${y * 0.25}px)`;
+    }, { passive: true });
+  }
 
   /* ─── BACKEND WARM-UP (sveglia Render su ogni pagina) ─── */
   function warmUpBackend() {
